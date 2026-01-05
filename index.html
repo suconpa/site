@@ -622,6 +622,10 @@
             padding: 2rem 0;
             opacity: 0;
             transition: opacity 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .modal.show {
@@ -632,15 +636,23 @@
         .modal-content {
             margin: auto;
             display: block;
-            width: auto;
-            max-width: 90%;
-            max-height: 80vh; /* 화면 꽉 차지 않게 조절 */
-            height: auto;
+    width: 80%;
+    height: 90%;
             border-radius: 8px;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             object-fit: contain;
             transform: scale(0.95);
             transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            z-index: 2000;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
         }
 
         .modal.show .modal-content {
@@ -662,29 +674,87 @@
             word-wrap: break-word;
         }
 
-        .close-modal {
-            position: absolute;
+        .modal-controls {
+            position: fixed;
             top: 2rem;
-            right: 3rem;
-            color: #f1f1f1;
-            font-size: 3rem;
-            font-weight: bold;
-            transition: 0.3s;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            z-index: 2010;
+            pointer-events: none;
+        }
+
+        .modal-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
             cursor: pointer;
-            z-index: 2001;
-            line-height: 1;
+            padding: 0;
+            pointer-events: auto;
+            position: relative;
+            z-index: 2011;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .modal-btn:hover {
+            background: rgba(50, 50, 50, 0.9);
+            color: #ffffff;
+        }
+
+        .modal-btn:active {
+            transform: scale(0.95);
+        }
+
+        .copy-btn {
+            border-radius: 0;
+        }
+
+        .zoom-out-btn {
+            border-radius: 0;
+        }
+
+        .zoom-in-btn {
+            border-radius: 0;
+        }
+
+        .close-modal {
+            background: #000000;
+            color: #e0e0e0;
+            border-radius: 0;
+            font-size: 1.8rem;
+            font-weight: 300;
         }
 
         .close-modal:hover {
-            color: var(--accent-color);
-            transform: rotate(90deg);
+            background: #1a1a1a;
+            color: #ffffff;
+            transform: none;
         }
 
+
         @media (max-width: 768px) {
-            .close-modal {
+            .modal-controls {
                 top: 1rem;
-                right: 1.5rem;
-                font-size: 2.5rem;
+            }
+            .modal-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            .close-modal {
+                font-size: 1.6rem;
             }
             .modal {
                 padding: 1rem 0;
@@ -1333,7 +1403,17 @@
 
     <!-- Modal (Popup) Structure -->
     <div id="imageModal" class="modal">
-        <span class="close-modal">&times;</span>
+        <div class="modal-controls">
+            <button class="modal-btn zoom-out-btn" id="zoomOutBtn" aria-label="줌 아웃">
+                <i class="fas fa-search-minus"></i>
+            </button>
+            <button class="modal-btn zoom-in-btn" id="zoomInBtn" aria-label="줌 인">
+                <i class="fas fa-search-plus"></i>
+            </button>
+            <button class="modal-btn close-modal" id="closeBtn" aria-label="닫기">
+                &times;
+            </button>
+        </div>
         <img class="modal-content" id="modalImg">
         <div id="modalCaption" class="modal-caption"></div>
     </div>
@@ -1409,8 +1489,8 @@
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("modalImg");
             const modalCaption = document.getElementById("modalCaption");
-            const closeBtn = document.querySelector(".close-modal");
             const instaItems = document.querySelectorAll(".insta-item");
+            let modalHistoryPushed = false;
 
             // Open Modal
             instaItems.forEach(item => {
@@ -1418,30 +1498,343 @@
                     const img = item.querySelector('img');
                     const title = item.getAttribute('data-title');
                     
+                    // 확대 상태 초기화
+                    currentZoom = 1;
+                    translateX = 0;
+                    translateY = 0;
+                    isDragging = false;
+                    
+                    // 히스토리 상태 추가 (뒤로가기 감지용)
+                    history.pushState({ modalOpen: true }, '', window.location.href);
+                    modalHistoryPushed = true;
+                    
                     modal.classList.add("show");
                     modalImg.src = img.src;
                     modalCaption.innerText = title;
                     document.body.style.overflow = "hidden"; // Disable scroll
+                    
+                    // 버튼 상태 업데이트
+                    setTimeout(() => {
+                        updateButtonStates();
+                    }, 100);
                 });
             });
 
+            // Modal controls
+            const closeBtn = document.getElementById("closeBtn");
+            const zoomInBtn = document.getElementById("zoomInBtn");
+            const zoomOutBtn = document.getElementById("zoomOutBtn");
+            let currentZoom = 1;
+            const zoomStep = 0.25;
+            const minZoom = 0.5;
+            const maxZoom = 3;
+            
+            // Drag functionality
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let translateX = 0;
+            let translateY = 0;
+
+            // Update button states
+            const updateButtonStates = () => {
+                if (zoomOutBtn) {
+                    if (currentZoom <= 1) {
+                        zoomOutBtn.style.opacity = '0.4';
+                        zoomOutBtn.style.cursor = 'not-allowed';
+                        zoomOutBtn.style.pointerEvents = 'none';
+                    } else {
+                        zoomOutBtn.style.opacity = '1';
+                        zoomOutBtn.style.cursor = 'pointer';
+                        zoomOutBtn.style.pointerEvents = 'auto';
+                    }
+                }
+            };
+
+            // Zoom functionality
+            const applyZoom = () => {
+                if (modalImg) {
+                    modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    modalImg.style.transition = currentZoom === 1 ? 'transform 0.3s cubic-bezier(0.19, 1, 0.22, 1)' : 'none';
+                    // 확대 시 커서 변경
+                    if (currentZoom > 1) {
+                        modalImg.style.cursor = isDragging ? 'grabbing' : 'grab';
+                    } else {
+                        modalImg.style.cursor = 'default';
+                        translateX = 0;
+                        translateY = 0;
+                    }
+                }
+                updateButtonStates();
+            };
+
+            // Drag handlers
+            if (modalImg) {
+                modalImg.addEventListener('mousedown', (e) => {
+                    if (currentZoom > 1) {
+                        isDragging = true;
+                        startX = e.clientX - translateX;
+                        startY = e.clientY - translateY;
+                        modalImg.style.cursor = 'grabbing';
+                        modalImg.style.transition = 'none';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging && currentZoom > 1) {
+                        translateX = e.clientX - startX;
+                        translateY = e.clientY - startY;
+                        
+                        // 이미지가 모달 영역을 벗어나지 않도록 제한
+                        const imgRect = modalImg.getBoundingClientRect();
+                        const modalRect = modal.getBoundingClientRect();
+                        const scaledWidth = imgRect.width;
+                        const scaledHeight = imgRect.height;
+                        
+                        const maxX = (scaledWidth - modalRect.width) / 2;
+                        const maxY = (scaledHeight - modalRect.height) / 2;
+                        
+                        translateX = Math.max(-maxX, Math.min(maxX, translateX));
+                        translateY = Math.max(-maxY, Math.min(maxY, translateY));
+                        
+                        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                        if (currentZoom > 1) {
+                            modalImg.style.cursor = 'grab';
+                        }
+                    }
+                });
+
+                // 터치 이벤트 지원 (모바일)
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let touchTranslateX = 0;
+                let touchTranslateY = 0;
+
+                modalImg.addEventListener('touchstart', (e) => {
+                    if (currentZoom > 1 && e.touches.length === 1) {
+                        isDragging = true;
+                        touchStartX = e.touches[0].clientX - touchTranslateX;
+                        touchStartY = e.touches[0].clientY - touchTranslateY;
+                        modalImg.style.transition = 'none';
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (isDragging && currentZoom > 1 && e.touches.length === 1) {
+                        touchTranslateX = e.touches[0].clientX - touchStartX;
+                        touchTranslateY = e.touches[0].clientY - touchStartY;
+                        
+                        // 이미지가 모달 영역을 벗어나지 않도록 제한
+                        const imgRect = modalImg.getBoundingClientRect();
+                        const modalRect = modal.getBoundingClientRect();
+                        const scaledWidth = imgRect.width;
+                        const scaledHeight = imgRect.height;
+                        
+                        const maxX = (scaledWidth - modalRect.width) / 2;
+                        const maxY = (scaledHeight - modalRect.height) / 2;
+                        
+                        touchTranslateX = Math.max(-maxX, Math.min(maxX, touchTranslateX));
+                        touchTranslateY = Math.max(-maxY, Math.min(maxY, touchTranslateY));
+                        
+                        translateX = touchTranslateX;
+                        translateY = touchTranslateY;
+                        
+                        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
+                        e.preventDefault();
+                    }
+                });
+
+                document.addEventListener('touchend', () => {
+                    if (isDragging) {
+                        isDragging = false;
+                    }
+                });
+
+                // 이미지 선택 방지
+                modalImg.addEventListener('selectstart', (e) => {
+                    e.preventDefault();
+                    return false;
+                });
+                modalImg.addEventListener('mousedown', (e) => {
+                    // 더블 클릭이 아닌 경우에만 선택 방지
+                    if (e.detail !== 2) {
+                        e.preventDefault();
+                    }
+                });
+                modalImg.addEventListener('dragstart', (e) => {
+                    e.preventDefault();
+                    return false;
+                });
+
+                // 더블 클릭으로 원본 크기 복원
+                let lastClickTime = 0;
+                let clickTimeout = null;
+
+                modalImg.addEventListener('click', (e) => {
+                    // 드래그 중이면 더블 클릭 무시
+                    if (isDragging) {
+                        return;
+                    }
+
+                    const currentTime = Date.now();
+                    const timeDiff = currentTime - lastClickTime;
+
+                    if (timeDiff < 300 && timeDiff > 0) {
+                        // 더블 클릭 감지
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // 선택 해제
+                        if (window.getSelection) {
+                            window.getSelection().removeAllRanges();
+                        }
+                        if (document.selection) {
+                            document.selection.empty();
+                        }
+                        
+                        // 원본 크기로 복원
+                        currentZoom = 1;
+                        translateX = 0;
+                        translateY = 0;
+                        applyZoom(); // 이 함수가 updateButtonStates()를 호출함
+                        
+                        lastClickTime = 0;
+                        if (clickTimeout) {
+                            clearTimeout(clickTimeout);
+                            clickTimeout = null;
+                        }
+                    } else {
+                        // 첫 클릭
+                        lastClickTime = currentTime;
+                        clickTimeout = setTimeout(() => {
+                            lastClickTime = 0;
+                        }, 300);
+                    }
+                });
+            }
+
+            // Zoom In
+            if(zoomInBtn && modalImg) {
+                zoomInBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    if (currentZoom < maxZoom) {
+                        currentZoom = Math.min(currentZoom + zoomStep, maxZoom);
+                        applyZoom();
+                    }
+                });
+                zoomInBtn.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                zoomInBtn.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+            }
+
+            // Zoom Out (확대된 상태에서만 작동)
+            if(zoomOutBtn && modalImg) {
+                zoomOutBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    // 확대된 상태(currentZoom > 1)에서만 축소 가능
+                    if (currentZoom > 1) {
+                        currentZoom = Math.max(currentZoom - zoomStep, 1);
+                        applyZoom();
+                    }
+                });
+                zoomOutBtn.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                zoomOutBtn.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+            }
+
             // Close Modal Function
             const closeModal = () => {
+                // 확대 상태 초기화
+                if (modalImg) {
+                    currentZoom = 1;
+                    translateX = 0;
+                    translateY = 0;
+                    isDragging = false;
+                    modalImg.style.transform = 'translate(0, 0) scale(1)';
+                    modalImg.style.cursor = 'default';
+                    modalImg.style.transition = 'transform 0.3s cubic-bezier(0.19, 1, 0.22, 1)';
+                }
+                updateButtonStates();
+                
                 modal.classList.remove("show");
                 document.body.style.overflow = ""; // Enable scroll
+                
+                // 히스토리 상태가 추가되어 있으면 제거
+                if (modalHistoryPushed) {
+                    history.back();
+                    modalHistoryPushed = false;
+                }
             };
+
+            // 뒤로가기 버튼으로 모달 닫기
+            window.addEventListener('popstate', (e) => {
+                if (modal.classList.contains("show")) {
+                    // 확대 상태 초기화
+                    if (modalImg) {
+                        currentZoom = 1;
+                        translateX = 0;
+                        translateY = 0;
+                        isDragging = false;
+                        modalImg.style.transform = 'translate(0, 0) scale(1)';
+                        modalImg.style.cursor = 'default';
+                        modalImg.style.transition = 'transform 0.3s cubic-bezier(0.19, 1, 0.22, 1)';
+                    }
+                    updateButtonStates();
+                    modal.classList.remove("show");
+                    document.body.style.overflow = "";
+                    modalHistoryPushed = false;
+                }
+            });
 
             // Close on 'X' click
             if(closeBtn) {
-                closeBtn.addEventListener('click', closeModal);
+                closeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    closeModal();
+                });
+                closeBtn.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
+                closeBtn.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                });
             }
 
-            // Close on background click
-            if(modal) {
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        closeModal();
-                    }
+            // 모달 컨트롤 영역 전체에서 이벤트 전파 막기
+            const modalControls = document.querySelector('.modal-controls');
+            if (modalControls) {
+                modalControls.addEventListener('mousedown', (e) => {
+                    e.stopPropagation();
+                });
+                modalControls.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+                modalControls.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
                 });
             }
             
