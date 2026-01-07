@@ -636,8 +636,10 @@
         .modal-content {
             margin: auto;
             display: block;
-    width: 80%;
-    height: 90%;
+            width: auto;
+            height: auto;
+            max-width: 90vw;
+            max-height: 90vh;
             border-radius: 8px;
             box-shadow: 0 0 30px rgba(0,0,0,0.8);
             object-fit: contain;
@@ -672,6 +674,43 @@
             flex-shrink: 0;
             max-width: 90%;
             word-wrap: break-word;
+        }
+
+        .modal-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 1.2rem;
+            z-index: 2001;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-loading.show {
+            opacity: 1;
+        }
+
+        .modal-loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .modal-content.loading {
+            opacity: 0.3;
         }
 
         .modal-controls {
@@ -715,18 +754,6 @@
 
         .modal-btn:active {
             transform: scale(0.95);
-        }
-
-        .copy-btn {
-            border-radius: 0;
-        }
-
-        .zoom-out-btn {
-            border-radius: 0;
-        }
-
-        .zoom-in-btn {
-            border-radius: 0;
         }
 
         .close-modal {
@@ -1290,6 +1317,10 @@
             <p class="section-description">
                 캐릭터의 표정은 단순한 움직임이 아닌, 성격(Personality)의 연장입니다.
             </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                <img src="images/말랑눈(뽀잉눈) 예시.webp" alt="말랑눈 예시" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="images/스프링본 머리카락 움직임.webp" alt="스프링본 머리카락 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </div>
         </div>
         
         <div class="features-grid">
@@ -1373,17 +1404,9 @@
         </div>
         
         <div class="insta-grid fade-in">
-            <div class="insta-item" data-title="3D 모델링 작업물">
-                <img src="images/123132.webp" alt="3D 모델링 작업물" loading="lazy">
-                    <div class="insta-title">3D 모델링 작업물</div>
-            </div>
-            <div class="insta-item" data-title="Honeycam 캡처 1">
-                <img src="images/Honeycam 2026-01-07 22-02-02.webp" alt="Honeycam 캡처 1" loading="lazy">
-                    <div class="insta-title">Honeycam 캡처 1</div>
-            </div>
-            <div class="insta-item" data-title="Honeycam 캡처 2">
-                <img src="images/Honeycam 2026-01-07 22-04-14.webp" alt="Honeycam 캡처 2" loading="lazy">
-                    <div class="insta-title">Honeycam 캡처 2</div>
+            <div class="insta-item" data-title="스프링본 - 회전">
+                <img src="images/스프링본_회전.webp" alt="스프링본 - 회전" loading="lazy">
+                    <div class="insta-title">스프링본 - 회전</div>
             </div>
             <div class="insta-item" data-title="스프링본 - 치마 손 부딪힘">
                 <img src="images/스프링본_치마 손 부딪힘.webp" alt="스프링본 - 치마 손 부딪힘" loading="lazy">
@@ -1393,9 +1416,29 @@
                 <img src="images/스프링본_치마움직임.webp" alt="스프링본 - 치마 움직임" loading="lazy">
                     <div class="insta-title">스프링본 - 치마 움직임</div>
             </div>
-            <div class="insta-item" data-title="스프링본 - 회전">
-                <img src="images/스프링본_회전.webp" alt="스프링본 - 회전" loading="lazy">
-                    <div class="insta-title">스프링본 - 회전</div>
+            <div class="insta-item" data-title="스프링본 - 머리카락 움직임">
+                <img src="images/스프링본 머리카락 움직임.webp" alt="스프링본 - 머리카락 움직임" loading="lazy">
+                    <div class="insta-title">스프링본 - 머리카락 움직임</div>
+            </div>
+            <div class="insta-item" data-title="마지카클로즈 - 회전">
+                <img src="images/마지카클로즈_회전.webp" alt="마지카클로즈 - 회전" loading="lazy">
+                    <div class="insta-title">마지카클로즈 - 회전</div>
+            </div>
+            <div class="insta-item" data-title="마지카클로즈 - 회전 2">
+                <img src="images/마지카클로즈_회전_2.webp" alt="마지카클로즈 - 회전 2" loading="lazy">
+                    <div class="insta-title">마지카클로즈 - 회전 2</div>
+            </div>
+            <div class="insta-item" data-title="마지카클로즈 - 치마 손 부딪힘">
+                <img src="images/마지카클로즈_치마 손 부딪힘.webp" alt="마지카클로즈 - 치마 손 부딪힘" loading="lazy">
+                    <div class="insta-title">마지카클로즈 - 치마 손 부딪힘</div>
+            </div>
+            <div class="insta-item" data-title="마지카클로즈 - 치마 움직임">
+                <img src="images/마지카클로즈_치마 움직임.webp" alt="마지카클로즈 - 치마 움직임" loading="lazy">
+                    <div class="insta-title">마지카클로즈 - 치마 움직임</div>
+            </div>
+            <div class="insta-item" data-title="말랑눈(뽀잉눈) 예시">
+                <img src="images/말랑눈(뽀잉눈) 예시.webp" alt="말랑눈(뽀잉눈) 예시" loading="lazy">
+                    <div class="insta-title">말랑눈(뽀잉눈) 예시</div>
             </div>
         </div>
     </section>
@@ -1403,15 +1446,13 @@
     <!-- Modal (Popup) Structure -->
     <div id="imageModal" class="modal">
         <div class="modal-controls">
-            <button class="modal-btn zoom-out-btn" id="zoomOutBtn" aria-label="줌 아웃">
-                <i class="fas fa-search-minus"></i>
-            </button>
-            <button class="modal-btn zoom-in-btn" id="zoomInBtn" aria-label="줌 인">
-                <i class="fas fa-search-plus"></i>
-            </button>
             <button class="modal-btn close-modal" id="closeBtn" aria-label="닫기">
                 &times;
             </button>
+        </div>
+        <div class="modal-loading" id="modalLoading">
+            <div class="modal-loading-spinner"></div>
+            <div>이미지 로딩 중...</div>
         </div>
         <img class="modal-content" id="modalImg">
         <div id="modalCaption" class="modal-caption"></div>
@@ -1488,6 +1529,7 @@
             const modal = document.getElementById("imageModal");
             const modalImg = document.getElementById("modalImg");
             const modalCaption = document.getElementById("modalCaption");
+            const modalLoading = document.getElementById("modalLoading");
             const instaItems = document.querySelectorAll(".insta-item");
             let modalHistoryPushed = false;
 
@@ -1497,284 +1539,40 @@
                     const img = item.querySelector('img');
                     const title = item.getAttribute('data-title');
                     
-                    // 확대 상태 초기화
-                    currentZoom = 1;
-                    translateX = 0;
-                    translateY = 0;
-                    isDragging = false;
-                    
                     // 히스토리 상태 추가 (뒤로가기 감지용)
                     history.pushState({ modalOpen: true }, '', window.location.href);
                     modalHistoryPushed = true;
                     
+                    // 모달 열기
                     modal.classList.add("show");
-                    modalImg.src = img.src;
                     modalCaption.innerText = title;
                     document.body.style.overflow = "hidden"; // Disable scroll
                     
-                    // 버튼 상태 업데이트
-                    setTimeout(() => {
-                        updateButtonStates();
-                    }, 100);
+                    // 로딩 인디케이터 표시
+                    modalLoading.classList.add("show");
+                    modalImg.classList.add("loading");
+                    
+                    // 이미지 로드 시작
+                    const imageToLoad = new Image();
+                    imageToLoad.onload = () => {
+                        modalImg.src = imageToLoad.src;
+                        modalImg.classList.remove("loading");
+                        modalLoading.classList.remove("show");
+                    };
+                    imageToLoad.onerror = () => {
+                        modalImg.classList.remove("loading");
+                        modalLoading.classList.remove("show");
+                        modalCaption.innerText = "이미지를 불러올 수 없습니다.";
+                    };
+                    imageToLoad.src = img.src;
                 });
             });
 
             // Modal controls
             const closeBtn = document.getElementById("closeBtn");
-            const zoomInBtn = document.getElementById("zoomInBtn");
-            const zoomOutBtn = document.getElementById("zoomOutBtn");
-            let currentZoom = 1;
-            const zoomStep = 0.25;
-            const minZoom = 0.5;
-            const maxZoom = 3;
-            
-            // Drag functionality
-            let isDragging = false;
-            let startX = 0;
-            let startY = 0;
-            let translateX = 0;
-            let translateY = 0;
-
-            // Update button states
-            const updateButtonStates = () => {
-                if (zoomOutBtn) {
-                    if (currentZoom <= 1) {
-                        zoomOutBtn.style.opacity = '0.4';
-                        zoomOutBtn.style.cursor = 'not-allowed';
-                        zoomOutBtn.style.pointerEvents = 'none';
-                    } else {
-                        zoomOutBtn.style.opacity = '1';
-                        zoomOutBtn.style.cursor = 'pointer';
-                        zoomOutBtn.style.pointerEvents = 'auto';
-                    }
-                }
-            };
-
-            // Zoom functionality
-            const applyZoom = () => {
-                if (modalImg) {
-                    modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
-                    modalImg.style.transition = currentZoom === 1 ? 'transform 0.3s cubic-bezier(0.19, 1, 0.22, 1)' : 'none';
-                    // 확대 시 커서 변경
-                    if (currentZoom > 1) {
-                        modalImg.style.cursor = isDragging ? 'grabbing' : 'grab';
-                    } else {
-                        modalImg.style.cursor = 'default';
-                        translateX = 0;
-                        translateY = 0;
-                    }
-                }
-                updateButtonStates();
-            };
-
-            // Drag handlers
-            if (modalImg) {
-                modalImg.addEventListener('mousedown', (e) => {
-                    if (currentZoom > 1) {
-                        isDragging = true;
-                        startX = e.clientX - translateX;
-                        startY = e.clientY - translateY;
-                        modalImg.style.cursor = 'grabbing';
-                        modalImg.style.transition = 'none';
-                        e.preventDefault();
-                    }
-                });
-
-                document.addEventListener('mousemove', (e) => {
-                    if (isDragging && currentZoom > 1) {
-                        translateX = e.clientX - startX;
-                        translateY = e.clientY - startY;
-                        
-                        // 이미지가 모달 영역을 벗어나지 않도록 제한
-                        const imgRect = modalImg.getBoundingClientRect();
-                        const modalRect = modal.getBoundingClientRect();
-                        const scaledWidth = imgRect.width;
-                        const scaledHeight = imgRect.height;
-                        
-                        const maxX = (scaledWidth - modalRect.width) / 2;
-                        const maxY = (scaledHeight - modalRect.height) / 2;
-                        
-                        translateX = Math.max(-maxX, Math.min(maxX, translateX));
-                        translateY = Math.max(-maxY, Math.min(maxY, translateY));
-                        
-                        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
-                    }
-                });
-
-                document.addEventListener('mouseup', () => {
-                    if (isDragging) {
-                        isDragging = false;
-                        if (currentZoom > 1) {
-                            modalImg.style.cursor = 'grab';
-                        }
-                    }
-                });
-
-                // 터치 이벤트 지원 (모바일)
-                let touchStartX = 0;
-                let touchStartY = 0;
-                let touchTranslateX = 0;
-                let touchTranslateY = 0;
-
-                modalImg.addEventListener('touchstart', (e) => {
-                    if (currentZoom > 1 && e.touches.length === 1) {
-                        isDragging = true;
-                        touchStartX = e.touches[0].clientX - touchTranslateX;
-                        touchStartY = e.touches[0].clientY - touchTranslateY;
-                        modalImg.style.transition = 'none';
-                        e.preventDefault();
-                    }
-                });
-
-                document.addEventListener('touchmove', (e) => {
-                    if (isDragging && currentZoom > 1 && e.touches.length === 1) {
-                        touchTranslateX = e.touches[0].clientX - touchStartX;
-                        touchTranslateY = e.touches[0].clientY - touchStartY;
-                        
-                        // 이미지가 모달 영역을 벗어나지 않도록 제한
-                        const imgRect = modalImg.getBoundingClientRect();
-                        const modalRect = modal.getBoundingClientRect();
-                        const scaledWidth = imgRect.width;
-                        const scaledHeight = imgRect.height;
-                        
-                        const maxX = (scaledWidth - modalRect.width) / 2;
-                        const maxY = (scaledHeight - modalRect.height) / 2;
-                        
-                        touchTranslateX = Math.max(-maxX, Math.min(maxX, touchTranslateX));
-                        touchTranslateY = Math.max(-maxY, Math.min(maxY, touchTranslateY));
-                        
-                        translateX = touchTranslateX;
-                        translateY = touchTranslateY;
-                        
-                        modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentZoom})`;
-                        e.preventDefault();
-                    }
-                });
-
-                document.addEventListener('touchend', () => {
-                    if (isDragging) {
-                        isDragging = false;
-                    }
-                });
-
-                // 이미지 선택 방지
-                modalImg.addEventListener('selectstart', (e) => {
-                    e.preventDefault();
-                    return false;
-                });
-                modalImg.addEventListener('mousedown', (e) => {
-                    // 더블 클릭이 아닌 경우에만 선택 방지
-                    if (e.detail !== 2) {
-                        e.preventDefault();
-                    }
-                });
-                modalImg.addEventListener('dragstart', (e) => {
-                    e.preventDefault();
-                    return false;
-                });
-
-                // 더블 클릭으로 원본 크기 복원
-                let lastClickTime = 0;
-                let clickTimeout = null;
-
-                modalImg.addEventListener('click', (e) => {
-                    // 드래그 중이면 더블 클릭 무시
-                    if (isDragging) {
-                        return;
-                    }
-
-                    const currentTime = Date.now();
-                    const timeDiff = currentTime - lastClickTime;
-
-                    if (timeDiff < 300 && timeDiff > 0) {
-                        // 더블 클릭 감지
-                        e.preventDefault();
-                        e.stopPropagation();
-                        
-                        // 선택 해제
-                        if (window.getSelection) {
-                            window.getSelection().removeAllRanges();
-                        }
-                        if (document.selection) {
-                            document.selection.empty();
-                        }
-                        
-                        // 원본 크기로 복원
-                        currentZoom = 1;
-                        translateX = 0;
-                        translateY = 0;
-                        applyZoom(); // 이 함수가 updateButtonStates()를 호출함
-                        
-                        lastClickTime = 0;
-                        if (clickTimeout) {
-                            clearTimeout(clickTimeout);
-                            clickTimeout = null;
-                        }
-                    } else {
-                        // 첫 클릭
-                        lastClickTime = currentTime;
-                        clickTimeout = setTimeout(() => {
-                            lastClickTime = 0;
-                        }, 300);
-                    }
-                });
-            }
-
-            // Zoom In
-            if(zoomInBtn && modalImg) {
-                zoomInBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    if (currentZoom < maxZoom) {
-                        currentZoom = Math.min(currentZoom + zoomStep, maxZoom);
-                        applyZoom();
-                    }
-                });
-                zoomInBtn.addEventListener('mousedown', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-                zoomInBtn.addEventListener('dblclick', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            }
-
-            // Zoom Out (확대된 상태에서만 작동)
-            if(zoomOutBtn && modalImg) {
-                zoomOutBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    // 확대된 상태(currentZoom > 1)에서만 축소 가능
-                    if (currentZoom > 1) {
-                        currentZoom = Math.max(currentZoom - zoomStep, 1);
-                        applyZoom();
-                    }
-                });
-                zoomOutBtn.addEventListener('mousedown', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-                zoomOutBtn.addEventListener('dblclick', (e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                });
-            }
 
             // Close Modal Function
             const closeModal = () => {
-                // 확대 상태 초기화
-                if (modalImg) {
-                    currentZoom = 1;
-                    translateX = 0;
-                    translateY = 0;
-                    isDragging = false;
-                    modalImg.style.transform = 'translate(0, 0) scale(1)';
-                    modalImg.style.cursor = 'default';
-                    modalImg.style.transition = 'transform 0.3s cubic-bezier(0.19, 1, 0.22, 1)';
-                }
-                updateButtonStates();
-                
                 modal.classList.remove("show");
                 document.body.style.overflow = ""; // Enable scroll
                 
@@ -1788,17 +1586,6 @@
             // 뒤로가기 버튼으로 모달 닫기
             window.addEventListener('popstate', (e) => {
                 if (modal.classList.contains("show")) {
-                    // 확대 상태 초기화
-                    if (modalImg) {
-                        currentZoom = 1;
-                        translateX = 0;
-                        translateY = 0;
-                        isDragging = false;
-                        modalImg.style.transform = 'translate(0, 0) scale(1)';
-                        modalImg.style.cursor = 'default';
-                        modalImg.style.transition = 'transform 0.3s cubic-bezier(0.19, 1, 0.22, 1)';
-                    }
-                    updateButtonStates();
                     modal.classList.remove("show");
                     document.body.style.overflow = "";
                     modalHistoryPushed = false;
@@ -1836,6 +1623,31 @@
                     e.preventDefault();
                 });
             }
+
+            // 이미지와 캡션 클릭 시 이벤트 전파 막기
+            if (modalImg) {
+                modalImg.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+            if (modalCaption) {
+                modalCaption.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+            if (modalLoading) {
+                modalLoading.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+            
+            // 모달 배경(검정 부분) 클릭 시 모달 닫기
+            modal.addEventListener('click', (e) => {
+                // 모달 자체를 클릭한 경우에만 닫기 (이미지나 컨트롤이 아닌 경우)
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
             
             // Close on Esc key
             document.addEventListener('keydown', (e) => {
