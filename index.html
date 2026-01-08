@@ -492,6 +492,49 @@
             margin-top: 4rem;
         }
         
+        .image-grid {
+            position: relative;
+        }
+        
+        .image-grid-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .image-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .image-grid-item:hover img {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+        }
+        
+        .image-grid-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-family: 'BookkMyungjo', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 1.2rem 1rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: #fff;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.05em;
+        }
+        
         @media (min-width: 769px) {
             .image-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -768,6 +811,58 @@
 
         .modal-content.loading {
             opacity: 0.3;
+        }
+
+        .modal-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: #e0e0e0;
+            font-size: 1.5rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            z-index: 2010;
+            opacity: 0.7;
+        }
+
+        .modal-arrow:hover {
+            background: rgba(50, 50, 50, 0.9);
+            color: #ffffff;
+            opacity: 1;
+        }
+
+        .modal-arrow-left {
+            left: 2rem;
+        }
+
+        .modal-arrow-right {
+            right: 2rem;
+        }
+
+        .modal-arrow:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        @media (max-width: 768px) {
+            .modal-arrow {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            .modal-arrow-left {
+                left: 1rem;
+            }
+            .modal-arrow-right {
+                right: 1rem;
+            }
         }
 
         .modal-controls {
@@ -1299,31 +1394,7 @@
     
     <nav>
         <div class="logo">[Che_E]</div>
-        <ul class="nav-links">
-            <li><a href="#visual">Visual</a></li>
-            <li><a href="#expression">Expression</a></li>
-            <li><a href="#technical">Technical</a></li>
-            <li><a href="#platform">Platform</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#message">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-btn" aria-label="메뉴 열기">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </nav>
-    
-    <div class="mobile-nav">
-        <ul class="mobile-nav-links">
-            <li><a href="#visual">Visual</a></li>
-            <li><a href="#expression">Expression</a></li>
-            <li><a href="#technical">Technical</a></li>
-            <li><a href="#platform">Platform</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#message">Contact</a></li>
-        </ul>
-    </div>
     
     <section class="hero">
         <div class="hero-content">
@@ -1367,14 +1438,38 @@
         </div>
         
         <div class="image-grid">
-            <img src="images/Visual_springbone_rotation.webp" alt="스프링본 회전" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_springbone_skirt_collision.webp" alt="스프링본 치마 손 부딪힘" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_springbone_hair_movement.webp" alt="스프링본 머리카락 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_magicacloth_rotation.webp" alt="마지카클로즈 회전" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_magicacloth_rotation_2.webp" alt="마지카클로즈 회전 2" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_magicacloth_skirt_collision.webp" alt="마지카클로즈 치마 손 부딪힘" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_magicacloth_skirt_movement.webp" alt="마지카클로즈 치마 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/Visual_magicacloth_rotation_2_springbone_skirt_movement.webp" alt="마지카클로즈 회전 2 스프링본 치마 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="image-grid-item">
+                <img src="images/Visual_springbone_rotation.webp" alt="스프링본 회전">
+                <div class="image-grid-title">스프링본 회전</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_springbone_skirt_collision.webp" alt="스프링본 치마 손 부딪힘">
+                <div class="image-grid-title">스프링본 치마 손 부딪힘</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_springbone_hair_movement.webp" alt="스프링본 머리카락 움직임">
+                <div class="image-grid-title">스프링본 머리카락 움직임</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_magicacloth_rotation.webp" alt="마지카클로즈 회전">
+                <div class="image-grid-title">마지카클로즈 회전</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_magicacloth_rotation_2.webp" alt="마지카클로즈 회전 2">
+                <div class="image-grid-title">마지카클로즈 회전 2</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_magicacloth_skirt_collision.webp" alt="마지카클로즈 치마 손 부딪힘">
+                <div class="image-grid-title">마지카클로즈 치마 손 부딪힘</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_magicacloth_skirt_movement.webp" alt="마지카클로즈 치마 움직임">
+                <div class="image-grid-title">마지카클로즈 치마 움직임</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/Visual_magicacloth_rotation_2_springbone_skirt_movement.webp" alt="마지카클로즈 회전 2 스프링본 치마 움직임">
+                <div class="image-grid-title">마지카클로즈 회전 2 스프링본 치마 움직임</div>
+            </div>
         </div>
     </section>
     
@@ -1387,8 +1482,14 @@
                 캐릭터의 표정은 단순한 움직임이 아닌, 성격(Personality)의 연장입니다.
             </p>
             <div class="image-grid" style="margin-top: 3rem;">
-                <img src="images/Facial_soft_eyes_example.webp" alt="말랑눈 예시" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="images/Facial_Live2D-esque_Expression_Deformation.png" alt="Live2D-esque Expression Deformation" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <div class="image-grid-item">
+                    <img src="images/Facial_soft_eyes_example.webp" alt="말랑눈 예시">
+                    <div class="image-grid-title">말랑눈 예시</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Facial_Live2D-esque_Expression_Deformation.png" alt="Live2D-esque Expression Deformation">
+                    <div class="image-grid-title">Live2D-esque Expression Deformation</div>
+                </div>
             </div>
         </div>
         
@@ -1431,12 +1532,30 @@
         </div>
         
         <div class="image-grid">
-            <img src="images/API_object_throwing.webp" alt="물건 던지기" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/API_water_splashing.webp" alt="물뿌리기" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/API_question_mark.webp" alt="물음표" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/API_bonk_hammer.webp" alt="뿅망치" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/API_patting.webp" alt="쓰담" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-            <img src="images/API_sleep_when_away.webp" alt="자리비우면 잠들기" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="image-grid-item">
+                <img src="images/API_object_throwing.webp" alt="물건 던지기">
+                <div class="image-grid-title">물건 던지기</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/API_water_splashing.webp" alt="물뿌리기">
+                <div class="image-grid-title">물뿌리기</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/API_question_mark.webp" alt="물음표">
+                <div class="image-grid-title">물음표</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/API_bonk_hammer.webp" alt="뿅망치">
+                <div class="image-grid-title">뿅망치</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/API_patting.webp" alt="쓰담">
+                <div class="image-grid-title">쓰담</div>
+            </div>
+            <div class="image-grid-item">
+                <img src="images/API_sleep_when_away.webp" alt="자리비우면 잠들기">
+                <div class="image-grid-title">자리비우면 잠들기</div>
+            </div>
         </div>
     </section>
     
@@ -1485,6 +1604,12 @@
 
     <!-- Modal (Popup) Structure -->
     <div id="imageModal" class="modal">
+        <button class="modal-arrow modal-arrow-left" id="prevBtn" aria-label="이전 이미지">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="modal-arrow modal-arrow-right" id="nextBtn" aria-label="다음 이미지">
+            <i class="fas fa-chevron-right"></i>
+        </button>
         <div class="modal-controls">
             <button class="modal-btn close-modal" id="closeBtn" aria-label="닫기">
                 &times;
@@ -1570,43 +1695,155 @@
             const modalImg = document.getElementById("modalImg");
             const modalCaption = document.getElementById("modalCaption");
             const modalLoading = document.getElementById("modalLoading");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
             const instaItems = document.querySelectorAll(".insta-item");
+            const imageGridItems = document.querySelectorAll(".image-grid-item");
             let modalHistoryPushed = false;
+            let currentImageIndex = 0;
+            let allImages = [];
 
-            // Open Modal
+            // 모든 이미지 수집
+            const collectAllImages = () => {
+                allImages = [];
+                // insta-items에서 이미지 수집
+                instaItems.forEach(item => {
+                    const img = item.querySelector('img');
+                    if (img) {
+                        allImages.push({
+                            src: img.src,
+                            title: item.getAttribute('data-title') || img.getAttribute('alt') || ''
+                        });
+                    }
+                });
+                // image-grid-item에서 이미지 수집
+                imageGridItems.forEach(item => {
+                    const img = item.querySelector('img');
+                    const titleEl = item.querySelector('.image-grid-title');
+                    if (img) {
+                        allImages.push({
+                            src: img.src,
+                            title: titleEl ? titleEl.textContent.trim() : img.getAttribute('alt') || ''
+                        });
+                    }
+                });
+            };
+
+            // 초기 이미지 수집
+            collectAllImages();
+
+            // 현재 인덱스의 이미지 찾기
+            const findImageIndex = (imgSrc) => {
+                return allImages.findIndex(img => img.src === imgSrc);
+            };
+
+            // 모달 열기 함수
+            const openModal = (imgSrc, title, index = null) => {
+                if (index !== null) {
+                    currentImageIndex = index;
+                } else {
+                    currentImageIndex = findImageIndex(imgSrc);
+                    if (currentImageIndex === -1) currentImageIndex = 0;
+                }
+                
+                // 히스토리 상태 추가 (뒤로가기 감지용)
+                history.pushState({ modalOpen: true }, '', window.location.href);
+                modalHistoryPushed = true;
+                
+                // 모달 열기
+                modal.classList.add("show");
+                // 화살표 버튼 표시
+                if (prevBtn) prevBtn.style.display = 'flex';
+                if (nextBtn) nextBtn.style.display = 'flex';
+                updateModalContent(allImages[currentImageIndex].src, allImages[currentImageIndex].title);
+                updateArrowButtons();
+            };
+
+            // 모달 내용 업데이트
+            const updateModalContent = (imgSrc, title) => {
+                modalCaption.innerText = title || '';
+                document.body.style.overflow = "hidden";
+                
+                // 로딩 인디케이터 표시
+                modalLoading.classList.add("show");
+                modalImg.classList.add("loading");
+                
+                // 이미지 로드 시작
+                const imageToLoad = new Image();
+                imageToLoad.onload = () => {
+                    modalImg.src = imageToLoad.src;
+                    modalImg.classList.remove("loading");
+                    modalLoading.classList.remove("show");
+                };
+                imageToLoad.onerror = () => {
+                    modalImg.classList.remove("loading");
+                    modalLoading.classList.remove("show");
+                    modalCaption.innerText = "이미지를 불러올 수 없습니다.";
+                };
+                imageToLoad.src = imgSrc;
+            };
+
+            // 화살표 버튼 상태 업데이트
+            const updateArrowButtons = () => {
+                if (prevBtn) {
+                    prevBtn.style.display = currentImageIndex > 0 ? 'flex' : 'none';
+                }
+                if (nextBtn) {
+                    nextBtn.style.display = currentImageIndex < allImages.length - 1 ? 'flex' : 'none';
+                }
+            };
+
+            // 다음 이미지
+            const showNextImage = () => {
+                if (currentImageIndex < allImages.length - 1) {
+                    currentImageIndex++;
+                    updateModalContent(allImages[currentImageIndex].src, allImages[currentImageIndex].title);
+                    updateArrowButtons();
+                }
+            };
+
+            // 이전 이미지
+            const showPrevImage = () => {
+                if (currentImageIndex > 0) {
+                    currentImageIndex--;
+                    updateModalContent(allImages[currentImageIndex].src, allImages[currentImageIndex].title);
+                    updateArrowButtons();
+                }
+            };
+
+            // Open Modal for insta-items
             instaItems.forEach(item => {
                 item.addEventListener('click', () => {
                     const img = item.querySelector('img');
                     const title = item.getAttribute('data-title');
-                    
-                    // 히스토리 상태 추가 (뒤로가기 감지용)
-                    history.pushState({ modalOpen: true }, '', window.location.href);
-                    modalHistoryPushed = true;
-                    
-                    // 모달 열기
-                    modal.classList.add("show");
-                    modalCaption.innerText = title;
-                    document.body.style.overflow = "hidden"; // Disable scroll
-                    
-                    // 로딩 인디케이터 표시
-                    modalLoading.classList.add("show");
-                    modalImg.classList.add("loading");
-                    
-                    // 이미지 로드 시작
-                    const imageToLoad = new Image();
-                    imageToLoad.onload = () => {
-                        modalImg.src = imageToLoad.src;
-                        modalImg.classList.remove("loading");
-                        modalLoading.classList.remove("show");
-                    };
-                    imageToLoad.onerror = () => {
-                        modalImg.classList.remove("loading");
-                        modalLoading.classList.remove("show");
-                        modalCaption.innerText = "이미지를 불러올 수 없습니다.";
-                    };
-                    imageToLoad.src = img.src;
+                    openModal(img.src, title);
                 });
             });
+
+            // Open Modal for image-grid items
+            imageGridItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const img = item.querySelector('img');
+                    const titleEl = item.querySelector('.image-grid-title');
+                    const title = titleEl ? titleEl.textContent.trim() : img.getAttribute('alt') || '';
+                    openModal(img.src, title);
+                });
+            });
+
+            // 화살표 버튼 이벤트
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showPrevImage();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showNextImage();
+                });
+            }
 
             // Modal controls
             const closeBtn = document.getElementById("closeBtn");
@@ -1621,6 +1858,10 @@
                     history.back();
                     modalHistoryPushed = false;
                 }
+                
+                // 화살표 버튼 숨기기
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
             };
 
             // 뒤로가기 버튼으로 모달 닫기
@@ -1689,10 +1930,18 @@
                 }
             });
             
-            // Close on Esc key
+            // Keyboard navigation
             document.addEventListener('keydown', (e) => {
-                if (e.key === "Escape" && modal.classList.contains("show")) {
-                    closeModal();
+                if (modal.classList.contains("show")) {
+                    if (e.key === "Escape") {
+                        closeModal();
+                    } else if (e.key === "ArrowLeft") {
+                        e.preventDefault();
+                        showPrevImage();
+                    } else if (e.key === "ArrowRight") {
+                        e.preventDefault();
+                        showNextImage();
+                    }
                 }
             });
 
