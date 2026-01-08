@@ -132,13 +132,62 @@
             }
             
             .fade-in {
-                opacity: 1;
-                transform: none;
-                transition: none;
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+                animation: none !important;
             }
             
             img {
                 will-change: auto;
+            }
+            
+            /* 모든 애니메이션 제거 */
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0s !important;
+                animation-delay: 0s !important;
+                transition-duration: 0s !important;
+                transition-delay: 0s !important;
+                animation: none !important;
+            }
+            
+            /* 특정 요소의 transform 애니메이션 제거 */
+            .hero-content,
+            .feature-card,
+            .insta-item,
+            .image-grid-item,
+            .modal-content,
+            .modal,
+            .scroll-to-top,
+            .cta-button,
+            .tool-item,
+            .modal-btn,
+            .modal-arrow {
+                transform: none !important;
+                transition: none !important;
+                animation: none !important;
+            }
+            
+            /* 호버 효과 제거 */
+            .insta-item:hover img,
+            .image-grid-item:hover img,
+            .feature-card:hover,
+            .cta-button:hover,
+            .tool-item:hover,
+            .modal-btn:hover,
+            .modal-arrow:hover {
+                transform: none !important;
+                transition: none !important;
+            }
+            
+            /* active 상태 애니메이션 제거 */
+            .feature-card:active,
+            .cta-button:active,
+            .modal-btn:active,
+            .modal-arrow:active {
+                transform: none !important;
             }
         }
 
@@ -1198,7 +1247,7 @@
             
             .cta-button:active {
                 background: #e0e0e5;
-                transform: scale(0.98);
+                transform: none !important;
             }
 
             /* 3. Section Headers - Clean Typography */
@@ -1254,14 +1303,15 @@
                 background: #f7f8f9;
                 border-radius: 26px;
                 border: none;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.03); /* 그림자 약간 부드럽게 */
+                box-shadow: 0 4px 20px rgba(0,0,0,0.03);
                 margin-bottom: 0;
-                transform: scale(1);
-                transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s;
+                transform: none !important;
+                transition: none !important;
+                animation: none !important;
             }
             
             .feature-card:active {
-                transform: scale(0.96);
+                transform: none !important;
                 background: #e5e5ea;
             }
             
@@ -1343,10 +1393,55 @@
                 border-radius: 0;
             }
             
+            .insta-item img {
+                transition: none !important;
+                transform: none !important;
+            }
+            
+            .insta-item:hover img {
+                transform: none !important;
+                filter: none !important;
+            }
+            
             .insta-title {
                 font-size: 0.9rem;
                 padding: 0.8rem 0.6rem;
                 background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 50%, transparent 100%);
+            }
+            
+            .image-grid-item img {
+                transition: none !important;
+                transform: none !important;
+            }
+            
+            .image-grid-item:hover img {
+                transform: none !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+            }
+            
+            .tool-item {
+                transition: none !important;
+            }
+            
+            .tool-item:hover {
+                transform: none !important;
+                transition: none !important;
+            }
+            
+            .modal {
+                transition: opacity 0s !important;
+            }
+            
+            .modal-content {
+                transition: transform 0s !important;
+            }
+            
+            .scroll-to-top {
+                transition: none !important;
+            }
+            
+            .scroll-to-top:hover {
+                transform: none !important;
             }
             
             /* 7. Message & Footer */
