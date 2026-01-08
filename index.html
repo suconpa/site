@@ -155,18 +155,25 @@
             img[src*=".gif"] {
                 image-rendering: auto !important;
                 -webkit-image-rendering: auto !important;
-                will-change: auto !important;
+                /* will-change 제거로 GPU 가속 최적화 */
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
                 animation-play-state: running !important;
                 -webkit-animation-play-state: running !important;
             }
             
-            /* 이미지 최적화 비활성화로 애니메이션 보장 */
+            /* 이미지 최적화로 애니메이션 보장 */
             .image-grid img,
             .insta-item img,
             .modal-content {
                 image-rendering: auto !important;
                 -webkit-image-rendering: auto !important;
-                will-change: auto !important;
+                transform: translateZ(0);
+                -webkit-transform: translateZ(0);
+                backface-visibility: hidden;
+                -webkit-backface-visibility: hidden;
             }
             
             /* 모든 애니메이션 제거 (스켈레톤 제외) */
@@ -386,6 +393,16 @@
             animation: cinematicReveal 1.0s 0.3s forwards cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
             z-index: 1;
+        }
+        
+        /* 모바일에서 즉시 표시 */
+        @media (max-width: 768px) {
+            .hero-content {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+                animation: none !important;
+            }
         }
         
         .hero-badge {
@@ -1284,9 +1301,17 @@
             }
             
             .hero-content {
-                transform: translateY(0);
-                opacity: 1;
+                transform: translateY(0) !important;
+                opacity: 1 !important;
                 width: 100%;
+                filter: none !important;
+                animation: none !important;
+            }
+            
+            .hero {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
             }
 
             .hero h1 {
