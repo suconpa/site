@@ -2096,10 +2096,26 @@
             }
             
             // Scroll Animation (Common)
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-            }, { threshold: 0.1 });
-            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            
+            // 모바일에서는 즉시 표시
+            if (window.innerWidth <= 768) {
+                fadeInElements.forEach(el => {
+                    el.classList.add('visible');
+                });
+            } else {
+                // 데스크톱에서는 IntersectionObserver 사용
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // 한 번 표시된 후 관찰 중지하여 성능 향상
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '50px' });
+                fadeInElements.forEach(el => observer.observe(el));
+            }
             
             // Navbar Scroll
             window.addEventListener('scroll', () => {
