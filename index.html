@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>[CHAI] 3D Virtual Solution | 차이</title>
-    <meta name="description" content="CHAI - 고품질 3D 버추얼 솔루션. 단 1%의 미학적 차이가 압도적인 퀄리티를 만듭니다. 당신의 페르소나에 깊이와 품격을 불어넣으십시오.">
+    <title>[Che_E] 3D Virtual Solution | 차이</title>
+    <meta name="description" content="Che_E - 고품질 3D 버추얼 솔루션. 단 1%의 미학적 차이가 압도적인 퀄리티를 만듭니다. 당신의 페르소나에 깊이와 품격을 불어넣으십시오.">
     <meta name="keywords" content="3D 모델링, 버추얼 솔루션, 버추얼 유튜버, Warudo, VSeeFace, 3D 아바타, 버추얼 아바타">
-    <meta name="author" content="CHAI">
+    <meta name="author" content="Che_E">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://chaesite.github.io/">
-    <meta property="og:title" content="[CHAI] 3D Virtual Solution | 차이">
-    <meta property="og:description" content="CHAI - 고품질 3D 버추얼 솔루션. 단 1%의 미학적 차이가 압도적인 퀄리티를 만듭니다.">
+    <meta property="og:title" content="[Che_E] 3D Virtual Solution | 차이">
+    <meta property="og:description" content="Che_E - 고품질 3D 버추얼 솔루션. 단 1%의 미학적 차이가 압도적인 퀄리티를 만듭니다.">
     <meta property="og:image" content="https://chaesite.github.io/og-image.jpg">
     
     <!-- Twitter -->
@@ -99,7 +99,8 @@
         canvas#heroCanvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; pointer-events: none; opacity: 0.5; /* 배경 간섭을 줄이기 위해 투명도 조절 */
+            z-index: 0; pointer-events: none; opacity: 0.5;
+            will-change: transform;
         }
         
         .ambient-glow {
@@ -109,6 +110,36 @@
             transform: translate(-50%, -50%);
             background: radial-gradient(circle at center, rgb(0 119 255 / 8%) 0%, transparent 60%);
             z-index: 1; pointer-events: none;
+        }
+        
+        /* 모바일에서 성능 최적화 */
+        @media (max-width: 768px) {
+            canvas#heroCanvas,
+            .ambient-glow,
+            body::before {
+                display: none !important;
+            }
+            
+            nav,
+            nav.scrolled,
+            .feature-card,
+            .insta-title,
+            .modal,
+            .modal-btn,
+            .scroll-to-top {
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+            
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+            
+            img {
+                will-change: auto;
+            }
         }
 
         /* --- Navigation --- */
@@ -301,7 +332,7 @@
         }
         
         .hero h1::after {
-            content: 'CHAI';
+            content: 'Che_E';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(255,255,255,0) 80%);
@@ -384,9 +415,18 @@
             background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(0, 0, 0, 0.03), transparent 40%);
             z-index: 0; opacity: 0; transition: opacity 0.5s ease;
             pointer-events: none; border-radius: 8px;
+            will-change: opacity;
         }
         
         section:hover::before { opacity: 1; }
+        
+        /* 모바일에서 spotlight 효과 비활성화 */
+        @media (max-width: 768px) {
+            section::before,
+            .feature-card::after {
+                display: none !important;
+            }
+        }
         
         .section-header { margin-bottom: 6rem; position: relative; }
         
@@ -428,7 +468,7 @@
         .section-description {
             font-size: 1.15rem;
             color: #444;
-            max-width: 600px;
+            max-width: 630px;
             line-height: 1.8;
             margin-top: 2rem;
             padding-left: 2rem;
@@ -588,6 +628,9 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), filter 0.4s ease;
+            will-change: transform;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         /* Title always visible at bottom */
@@ -668,6 +711,7 @@
             -khtml-user-drag: none;
             -moz-user-drag: none;
             -o-user-drag: none;
+            will-change: transform;
         }
 
         .modal.show .modal-content {
@@ -1254,7 +1298,7 @@
     <div class="ambient-glow"></div>
     
     <nav>
-        <div class="logo">[CHAI]</div>
+        <div class="logo">[Che_E]</div>
         <ul class="nav-links">
             <li><a href="#visual">Visual</a></li>
             <li><a href="#expression">Expression</a></li>
@@ -1283,12 +1327,13 @@
     
     <section class="hero">
         <div class="hero-content">
-            <span class="hero-badge">High-End Virtual Solution</span>
-            <h1>CHAI</h1>
-            <div class="hero-subtitle">The Art of Persona</div>
+            <span class="hero-badge">Full-stack Avatar Commission</span>
+            <h1>Che_E</h1>
+            <div class="hero-subtitle">Illustrator & 3D Artist & Developer</div>
             <p class="hero-desc">
-                단 1%의 미학적 <strong>'차이'</strong>가 압도적인 퀄리티를 만듭니다.<br>
-                당신의 페르소나에 <strong>깊이와 품격</strong>을 불어넣으십시오.
+                모델링, 텍스처링, 쉐이더 컨버팅, 3D 원화, 페이셜, 와루도, VRC, API 등<br>
+                <strong>한 곳에서 모든 결과물을 받아보실 수 있습니다.</strong><br>
+                방송에만 집중할 수 있는 환경을 구축합니다.
             </p>
         </div>
     </section>
@@ -1299,15 +1344,15 @@
             <h2 class="section-title">Visual </h2>
             <h3 class="section-subtitle">버츄얼</h3>
             <p class="section-description">
-                어떤 각도, 어떤 조명에서도 당신은 완벽해야 합니다.<br>
-                세상에 단 하나뿐인 시그니처 룩(Signature Look)을 완성합니다.
+              Blender를 통해 직접 작업합니다.<br> 자동 페이셜 프로그램을 사용하지 않으며 모든 쉐이프키를 제로부터 만들어냅니다. 
             </p>
         </div>
         
         <div class="features-grid">
             <div class="feature-card fade-in">
-                <h3>Artistic Texturing</h3>
-                <p>피부 질감, 메이크업의 농도, 머리카락의 결까지 정교하게 조율하여 독보적인 아우라를 연출합니다.</p>
+                <h3>Facial</h3>
+                <p>개성있는, 역동적이지만 기괴하지 않은 범위의 페이셜을 추구합니다.
+                  표준 52개 페이셜(ARKit) 이외에도 수십 개의 커스텀 키를 추가로 설계하여 보정합니다.</p>
             </div>
             
             <div class="feature-card fade-in">
@@ -1374,7 +1419,7 @@
         
         <div class="features-grid">
             <div class="feature-card fade-in">
-                <h3>Warudo Specialist</h3>
+                <h3>Warudo BluePrint</h3>
                 <ul class="feature-list">
                     <li>최신 API 및 신기능 즉각 대응</li>
                     <li>Node/Blueprint 기반 인터랙션 설계</li>
@@ -1382,10 +1427,7 @@
                 </ul>
             </div>
             
-            <div class="feature-card fade-in">
-                <h3>Advanced Physics</h3>
-                <p>Magica Cloth와 Spring Bone의 하이브리드 세팅으로 자연스러운 움직임과 충돌 처리(Collider)를 구현합니다.</p>
-            </div>
+           
         </div>
         
         <div class="image-grid">
@@ -1431,7 +1473,7 @@
             <h2 class="section-title">Portfolio</h2>
             <h3 class="section-subtitle">포트폴리오</h3>
             <p class="section-description">
-                CHAI의 다양한 3D 모델링 및 버추얼 솔루션 작업물을 확인해보세요.<br>
+                Che_E의 다양한 3D 모델링 및 버추얼 솔루션 작업물을 확인해보세요.<br>
                 생동감 넘치는 캐릭터와 섬세한 디테일을 경험하실 수 있습니다.
             </p>
         </div>
@@ -1465,7 +1507,7 @@
             기술적인 복잡함은 제가 감당하겠습니다.<br>
             당신은 무대 위에서 빛나는 것에만 집중하십시오.
         </p>
-        <div class="signature">3D Virtual Artist, CHAI</div>
+        <div class="signature">3D Virtual Artist, Che_E</div>
         <div class="social-links">
             <a href="#" class="social-link" aria-label="Discord">
                 <div class="social-link-icon">
@@ -1489,7 +1531,7 @@
     </section>
     
     <footer>
-        <p>&copy; 2024 [CHAI] 3D VIRTUAL SOLUTION.</p>
+        <p>&copy; 2024 [Che_E] 3D VIRTUAL SOLUTION.</p>
     </footer>
     
     <!-- Scroll to Top Button -->
@@ -1655,76 +1697,150 @@
             });
 
             // Canvas & Spotlight (Only run on desktop for performance)
-            if (window.innerWidth > 768) {
+            if (window.innerWidth > 768 && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
                 const canvas = document.getElementById('heroCanvas');
                 if (canvas) {
                     const ctx = canvas.getContext('2d');
                     let width, height;
                     let particles = [];
-                    const particleCount = 60; 
-                    const connectionDistance = 150;
+                    const particleCount = 40; // 파티클 수 감소 (60 -> 40)
+                    const connectionDistance = 120; // 연결 거리 감소 (150 -> 120)
                     const mouseDistance = 200;
                     let mouse = { x: null, y: null };
+                    let animationFrameId = null;
+                    let lastTime = 0;
+                    const targetFPS = 30; // FPS 제한
+                    const frameInterval = 1000 / targetFPS;
                     
-                    window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-                    window.addEventListener('resize', () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; });
-                    width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight;
+                    // Throttle mouse move
+                    let mouseThrottle = false;
+                    window.addEventListener('mousemove', (e) => {
+                        if (!mouseThrottle) {
+                            mouse.x = e.clientX;
+                            mouse.y = e.clientY;
+                            mouseThrottle = true;
+                            setTimeout(() => { mouseThrottle = false; }, 16); // ~60fps throttle
+                        }
+                    });
+                    
+                    window.addEventListener('resize', () => {
+                        width = canvas.width = window.innerWidth;
+                        height = canvas.height = window.innerHeight;
+                    });
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
 
                     class Particle {
                         constructor() {
-                            this.x = Math.random() * width; this.y = Math.random() * height;
-                            this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
-                            this.size = Math.random() * 2 + 1;
-                            // Dark particles for white background
-                            this.color = `rgba(0, 0, 0, ${Math.random() * 0.15 + 0.1})`;
+                            this.x = Math.random() * width;
+                            this.y = Math.random() * height;
+                            this.vx = (Math.random() - 0.5) * 0.3; // 속도 감소
+                            this.vy = (Math.random() - 0.5) * 0.3;
+                            this.size = Math.random() * 1.5 + 0.5; // 크기 감소
+                            this.color = `rgba(0, 0, 0, ${Math.random() * 0.1 + 0.05})`; // 투명도 감소
                         }
                         update() {
-                            this.x += this.vx; this.y += this.vy;
+                            this.x += this.vx;
+                            this.y += this.vy;
                             if (this.x < 0 || this.x > width) this.vx *= -1;
                             if (this.y < 0 || this.y > height) this.vy *= -1;
                             if (mouse.x != null) {
-                                let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                                let dx = mouse.x - this.x;
+                                let dy = mouse.y - this.y;
                                 let distance = Math.sqrt(dx * dx + dy * dy);
                                 if (distance < mouseDistance) {
                                     const force = (mouseDistance - distance) / mouseDistance;
-                                    this.x += (dx / distance) * force * 0.05;
-                                    this.y += (dy / distance) * force * 0.05;
+                                    this.x += (dx / distance) * force * 0.03; // 힘 감소
+                                    this.y += (dy / distance) * force * 0.03;
                                 }
                             }
                         }
-                        draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+                        draw() {
+                            ctx.fillStyle = this.color;
+                            ctx.beginPath();
+                            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
                     }
                     
-                    for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
                     
-                    function animate() {
-                        ctx.clearRect(0, 0, width, height);
-                        for (let i = 0; i < particles.length; i++) {
-                            particles[i].update(); particles[i].draw();
-                            for (let j = i; j < particles.length; j++) {
-                                let dx = particles[i].x - particles[j].x; let dy = particles[i].y - particles[j].y;
-                                let dist = Math.sqrt(dx * dx + dy * dy);
-                                if (dist < connectionDistance) {
-                                    ctx.beginPath();
-                                    ctx.strokeStyle = `rgba(0, 107, 230, ${(1 - dist / connectionDistance) * 0.25})`;
-                                    ctx.lineWidth = 1; ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke();
+                    function animate(currentTime) {
+                        if (currentTime - lastTime >= frameInterval) {
+                            ctx.clearRect(0, 0, width, height);
+                            
+                            // 파티클 업데이트 및 그리기
+                            for (let i = 0; i < particles.length; i++) {
+                                particles[i].update();
+                                particles[i].draw();
+                            }
+                            
+                            // 연결선 그리기 (최적화: 거리 제곱으로 비교)
+                            for (let i = 0; i < particles.length; i++) {
+                                for (let j = i + 1; j < particles.length; j++) {
+                                    let dx = particles[i].x - particles[j].x;
+                                    let dy = particles[i].y - particles[j].y;
+                                    let distSq = dx * dx + dy * dy;
+                                    if (distSq < connectionDistance * connectionDistance) {
+                                        let dist = Math.sqrt(distSq);
+                                        ctx.beginPath();
+                                        ctx.strokeStyle = `rgba(0, 107, 230, ${(1 - dist / connectionDistance) * 0.15})`; // 투명도 감소
+                                        ctx.lineWidth = 0.5; // 선 두께 감소
+                                        ctx.moveTo(particles[i].x, particles[i].y);
+                                        ctx.lineTo(particles[j].x, particles[j].y);
+                                        ctx.stroke();
+                                    }
                                 }
                             }
+                            
+                            lastTime = currentTime;
                         }
-                        requestAnimationFrame(animate);
+                        animationFrameId = requestAnimationFrame(animate);
                     }
-                    animate();
+                    
+                    // 페이지가 보일 때만 애니메이션 시작
+                    if (document.visibilityState === 'visible') {
+                        animate(0);
+                    }
+                    
+                    // 페이지 가시성 변경 감지
+                    document.addEventListener('visibilitychange', () => {
+                        if (document.visibilityState === 'hidden') {
+                            if (animationFrameId) {
+                                cancelAnimationFrame(animationFrameId);
+                                animationFrameId = null;
+                            }
+                        } else {
+                            if (!animationFrameId) {
+                                animate(0);
+                            }
+                        }
+                    });
 
-                    // Desktop Spotlight
+                    // Desktop Spotlight (throttled)
+                    let spotlightThrottle = false;
                     document.addEventListener('mousemove', (e) => {
-                        const x = e.clientX; const y = e.clientY;
-                        document.body.style.setProperty('--mouse-x', `${x}px`);
-                        document.body.style.setProperty('--mouse-y', `${y}px`);
-                        document.querySelectorAll('section, .feature-card').forEach(el => {
-                            const rect = el.getBoundingClientRect();
-                            el.style.setProperty('--mouse-x', `${x - rect.left}px`);
-                            el.style.setProperty('--mouse-y', `${y - rect.top}px`);
-                        });
+                        if (!spotlightThrottle) {
+                            const x = e.clientX;
+                            const y = e.clientY;
+                            document.body.style.setProperty('--mouse-x', `${x}px`);
+                            document.body.style.setProperty('--mouse-y', `${y}px`);
+                            
+                            // IntersectionObserver로 화면에 보이는 요소만 업데이트
+                            const visibleElements = document.querySelectorAll('section:hover, .feature-card:hover');
+                            visibleElements.forEach(el => {
+                                const rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                                    el.style.setProperty('--mouse-x', `${x - rect.left}px`);
+                                    el.style.setProperty('--mouse-y', `${y - rect.top}px`);
+                                }
+                            });
+                            
+                            spotlightThrottle = true;
+                            setTimeout(() => { spotlightThrottle = false; }, 50); // 20fps throttle
+                        }
                     });
                 }
             }
@@ -1764,4 +1880,5 @@
         };
     </script>
 </body>
+</html>
 </html>
