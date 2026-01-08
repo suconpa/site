@@ -445,6 +445,19 @@
             perspective: 2000px;
         }
         
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        @media (min-width: 769px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
         .feature-card {
             background: var(--card-bg-desktop);
             border: 1px solid rgba(0, 0, 0, 0.08);
@@ -1283,8 +1296,8 @@
     <section id="visual">
         <div class="section-header fade-in">
             <span class="section-number">01</span>
-            <h2 class="section-title">Visual Difference</h2>
-            <h3 class="section-subtitle">깊이가 다른 비주얼</h3>
+            <h2 class="section-title">Visual </h2>
+            <h3 class="section-subtitle">버츄얼</h3>
             <p class="section-description">
                 어떤 각도, 어떤 조명에서도 당신은 완벽해야 합니다.<br>
                 세상에 단 하나뿐인 시그니처 룩(Signature Look)을 완성합니다.
@@ -1304,23 +1317,34 @@
             
             <div class="feature-card fade-in">
                 <h3>Precise Calibration</h3>
-                <p>유니티 엔진과 송출 화면 간의 괴리감을 없애기 위한 텍스처 톤 매핑, 섀도우 캘리브레이션을 진행합니다.</p>
+                <p>스프링본</p>
             </div>
+        </div>
+        
+        <div class="image-grid">
+            <img src="images/Visual_springbone_rotation.webp" alt="스프링본 회전" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_springbone_skirt_collision.webp" alt="스프링본 치마 손 부딪힘" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_springbone_skirt_movement.webp" alt="스프링본 치마 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_springbone_hair_movement.webp" alt="스프링본 머리카락 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_magicacloth_rotation.webp" alt="마지카클로즈 회전" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_magicacloth_rotation_2.webp" alt="마지카클로즈 회전 2" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_magicacloth_skirt_collision.webp" alt="마지카클로즈 치마 손 부딪힘" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_magicacloth_skirt_movement.webp" alt="마지카클로즈 치마 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/Visual_magicacloth_rotation_2_springbone_skirt_movement.webp" alt="마지카클로즈 회전 2 스프링본 치마 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
         </div>
     </section>
     
     <section id="expression">
         <div class="section-header fade-in">
             <span class="section-number">02</span>
-            <h2 class="section-title">Expression Difference</h2>
-            <h3 class="section-subtitle">영혼이 담긴 표현력</h3>
+            <h2 class="section-title">Facial</h2>
+            <h3 class="section-subtitle">페이셜</h3>
             <p class="section-description">
                 캐릭터의 표정은 단순한 움직임이 아닌, 성격(Personality)의 연장입니다.
             </p>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                <img src="images/soft_eyes_example.webp" alt="말랑눈 예시" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="images/springbone_hair_movement.webp" alt="스프링본 머리카락 움직임" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                <img src="images/Live2D-esque Expression Deformation.png" alt="Live2D-esque Expression Deformation" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="image-grid" style="margin-top: 3rem;">
+                <img src="images/Facial_soft_eyes_example.webp" alt="말랑눈 예시" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img src="images/Facial_Live2D-esque Expression Deformation.png" alt="Live2D-esque Expression Deformation" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
             </div>
         </div>
         
@@ -1345,8 +1369,8 @@
     <section id="technical">
         <div class="section-header fade-in">
             <span class="section-number">03</span>
-            <h2 class="section-title">Technical Mastery</h2>
-            <h3 class="section-subtitle">방송을 위한 엔지니어링</h3>
+            <h2 class="section-title">API</h2>
+            <h3 class="section-subtitle">블루프린트</h3>
         </div>
         
         <div class="features-grid">
@@ -1364,13 +1388,22 @@
                 <p>Magica Cloth와 Spring Bone의 하이브리드 세팅으로 자연스러운 움직임과 충돌 처리(Collider)를 구현합니다.</p>
             </div>
         </div>
+        
+        <div class="image-grid">
+            <img src="images/API_object_throwing.webp" alt="물건 던지기" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/API_water_splashing.webp" alt="물뿌리기" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/API_question_mark.webp" alt="물음표" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/API_bonk_hammer.webp" alt="뿅망치" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/API_patting.webp" alt="쓰담" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <img src="images/API_sleep_when_away.webp" alt="자리비우면 잠들기" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        </div>
     </section>
     
     <section id="platform">
         <div class="section-header fade-in">
             <span class="section-number">04</span>
-            <h2 class="section-title">Platform & Tool</h2>
-            <h3 class="section-subtitle">호환성과 도구</h3>
+            <h2 class="section-title">3D VTubing software & Program</h2>
+            <h3 class="section-subtitle">3D 소프트웨어 & 프로그램</h3>
         </div>
         
         <div class="features-grid">
@@ -1397,7 +1430,7 @@
         <div class="section-header fade-in">
             <span class="section-number">05</span>
             <h2 class="section-title">Portfolio</h2>
-            <h3 class="section-subtitle">작업물 갤러리</h3>
+            <h3 class="section-subtitle">포트폴리오</h3>
             <p class="section-description">
                 CHAI의 다양한 3D 모델링 및 버추얼 솔루션 작업물을 확인해보세요.<br>
                 생동감 넘치는 캐릭터와 섬세한 디테일을 경험하실 수 있습니다.
@@ -1405,42 +1438,7 @@
         </div>
         
         <div class="insta-grid fade-in">
-            <div class="insta-item" data-title="스프링본 - 회전">
-                <img src="images/springbone_rotation.webp" alt="스프링본 - 회전" loading="lazy">
-                    <div class="insta-title">스프링본 - 회전</div>
-            </div>
-            <div class="insta-item" data-title="스프링본 - 치마 손 부딪힘">
-                <img src="images/springbone_skirt_collision.webp" alt="스프링본 - 치마 손 부딪힘" loading="lazy">
-                    <div class="insta-title">스프링본 - 치마 손 부딪힘</div>
-            </div>
-            <div class="insta-item" data-title="스프링본 - 치마 움직임">
-                <img src="images/springbone_skirt_movement.webp" alt="스프링본 - 치마 움직임" loading="lazy">
-                    <div class="insta-title">스프링본 - 치마 움직임</div>
-            </div>
-            <div class="insta-item" data-title="스프링본 - 머리카락 움직임">
-                <img src="images/springbone_hair_movement.webp" alt="스프링본 - 머리카락 움직임" loading="lazy">
-                    <div class="insta-title">스프링본 - 머리카락 움직임</div>
-            </div>
-            <div class="insta-item" data-title="마지카클로즈 - 회전">
-                <img src="images/magicacloth_rotation.webp" alt="마지카클로즈 - 회전" loading="lazy">
-                    <div class="insta-title">마지카클로즈 - 회전</div>
-            </div>
-            <div class="insta-item" data-title="마지카클로즈 - 회전 2">
-                <img src="images/magicacloth_rotation_2.webp" alt="마지카클로즈 - 회전 2" loading="lazy">
-                    <div class="insta-title">마지카클로즈 - 회전 2</div>
-            </div>
-            <div class="insta-item" data-title="마지카클로즈 - 치마 손 부딪힘">
-                <img src="images/magicacloth_skirt_collision.webp" alt="마지카클로즈 - 치마 손 부딪힘" loading="lazy">
-                    <div class="insta-title">마지카클로즈 - 치마 손 부딪힘</div>
-            </div>
-            <div class="insta-item" data-title="마지카클로즈 - 치마 움직임">
-                <img src="images/magicacloth_skirt_movement.webp" alt="마지카클로즈 - 치마 움직임" loading="lazy">
-                    <div class="insta-title">마지카클로즈 - 치마 움직임</div>
-            </div>
-            <div class="insta-item" data-title="말랑눈(뽀잉눈) 예시">
-                <img src="images/soft_eyes_example.webp" alt="말랑눈(뽀잉눈) 예시" loading="lazy">
-                    <div class="insta-title">말랑눈(뽀잉눈) 예시</div>
-            </div>
+            <!-- 포트폴리오 이미지가 있으면 여기에 추가 -->
         </div>
     </section>
 
