@@ -139,7 +139,30 @@
             }
             
             img {
-                will-change: auto;
+                will-change: auto !important;
+                image-rendering: auto !important;
+                -webkit-image-rendering: auto !important;
+            }
+            
+            /* 움짤 애니메이션 보장 - 모바일에서도 부드럽게 재생 */
+            img[src$=".webp"],
+            img[src$=".gif"],
+            img[src*=".webp"],
+            img[src*=".gif"] {
+                image-rendering: auto !important;
+                -webkit-image-rendering: auto !important;
+                will-change: auto !important;
+                animation-play-state: running !important;
+                -webkit-animation-play-state: running !important;
+            }
+            
+            /* 이미지 최적화 비활성화로 애니메이션 보장 */
+            .image-grid img,
+            .insta-item img,
+            .modal-content {
+                image-rendering: auto !important;
+                -webkit-image-rendering: auto !important;
+                will-change: auto !important;
             }
             
             /* 모든 애니메이션 제거 */
@@ -559,6 +582,8 @@
             display: block;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            image-rendering: auto;
+            -webkit-image-rendering: auto;
         }
         
         .image-grid-item:hover img {
@@ -722,8 +747,6 @@
             object-fit: cover;
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), filter 0.4s ease;
             will-change: transform;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
         }
 
         /* Title always visible at bottom */
