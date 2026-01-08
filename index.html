@@ -165,15 +165,19 @@
                 will-change: auto !important;
             }
             
-            /* 모든 애니메이션 제거 */
-            *,
-            *::before,
-            *::after {
+            /* 모든 애니메이션 제거 (스켈레톤 제외) */
+            *:not(.skeleton),
+            *:not(.skeleton)::before,
+            *:not(.skeleton)::after {
                 animation-duration: 0s !important;
                 animation-delay: 0s !important;
                 transition-duration: 0s !important;
                 transition-delay: 0s !important;
-                animation: none !important;
+            }
+            
+            /* 스켈레톤 애니메이션은 유지 */
+            .skeleton {
+                animation: skeleton-loading 1.5s ease-in-out infinite !important;
             }
             
             /* 특정 요소의 transform 애니메이션 제거 */
@@ -573,17 +577,40 @@
             overflow: hidden;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #f0f0f0;
         }
         
+        .image-grid-item .skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .image-grid-item .skeleton.hidden {
+            display: none;
+        }
         
         .image-grid img {
             width: 100%;
             height: auto;
             display: block;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             image-rendering: auto;
             -webkit-image-rendering: auto;
+            opacity: 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .image-grid img.loaded {
+            opacity: 1;
         }
         
         .image-grid-item:hover img {
@@ -747,6 +774,37 @@
             object-fit: cover;
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), filter 0.4s ease;
             will-change: transform;
+            opacity: 0;
+        }
+        
+        .insta-item img.loaded {
+            opacity: 1;
+        }
+        
+        /* 스켈레톤 UI */
+        .skeleton {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        .skeleton.hidden {
+            display: none;
+        }
+        
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
         }
 
         /* Title always visible at bottom */
@@ -1850,6 +1908,48 @@
 
             // 초기 이미지 수집
             collectAllImages();
+            
+            // 스켈레톤 UI 초기화 및 이미지 로드 처리
+            const initSkeletonUI = () => {
+                // 모든 이미지에 스켈레톤 추가 및 로드 처리
+                const allImageElements = document.querySelectorAll('.insta-item img, .image-grid img');
+                
+                allImageElements.forEach(img => {
+                    // 스켈레톤 요소 생성
+                    const skeleton = document.createElement('div');
+                    skeleton.className = 'skeleton';
+                    
+                    // 부모 요소에 스켈레톤 추가
+                    const parent = img.parentElement;
+                    if (parent) {
+                        parent.insertBefore(skeleton, img);
+                    }
+                    
+                    // 이미지가 이미 로드되어 있는 경우
+                    if (img.complete && img.naturalHeight !== 0) {
+                        img.classList.add('loaded');
+                        skeleton.classList.add('hidden');
+                    } else {
+                        // 이미지 로드 완료 시 스켈레톤 숨기기
+                        img.addEventListener('load', () => {
+                            img.classList.add('loaded');
+                            skeleton.classList.add('hidden');
+                        });
+                        
+                        // 이미지 로드 실패 시에도 스켈레톤 숨기기
+                        img.addEventListener('error', () => {
+                            skeleton.classList.add('hidden');
+                        });
+                    }
+                });
+            };
+            
+            // 페이지 로드 완료 시 스켈레톤 UI 초기화
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initSkeletonUI);
+            } else {
+                initSkeletonUI();
+            }
 
             // 현재 인덱스의 이미지 찾기
             const findImageIndex = (imgSrc) => {
