@@ -86,6 +86,61 @@
             cursor: default;
             position: relative;
             word-break: keep-all; /* 한글 단어 끊김 방지 전역 적용 */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        /* 전체 드래그 방지 */
+        * {
+            -webkit-user-drag: none !important;
+            -khtml-user-drag: none !important;
+            -moz-user-drag: none !important;
+            -o-user-drag: none !important;
+        }
+        
+        /* 이미지 드래그 방지 강화 */
+        img {
+            -webkit-user-drag: none !important;
+            -khtml-user-drag: none !important;
+            -moz-user-drag: none !important;
+            -o-user-drag: none !important;
+            pointer-events: auto;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+        
+        /* 텍스트 드래그 방지 */
+        p, span, div, h1, h2, h3, h4, h5, h6, li {
+            -webkit-user-drag: none !important;
+            -moz-user-drag: none !important;
+        }
+        
+        /* 버튼과 링크는 드래그 가능하도록 예외 처리 */
+        button,
+        a,
+        .cta-button,
+        .modal-btn,
+        .modal-arrow,
+        .scroll-to-top,
+        .notice-toggle {
+            -webkit-user-drag: auto;
+            -moz-user-drag: auto;
+        }
+        
+        /* 텍스트 선택이 필요한 부분은 예외 처리 */
+        .notice-content,
+        .section-description,
+        .hero-desc,
+        .feature-card p,
+        .message-section p {
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
         }
         
         /* Global Spotlight Effect (Desktop Only) */
@@ -497,7 +552,7 @@
         
         /* --- Sections Common --- */
         section {
-            padding: 9rem 2rem;
+            padding: 3rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
             position: relative;
@@ -565,7 +620,7 @@
         .section-description {
             font-size: 1.15rem;
             color: #444;
-            max-width: 630px;
+            max-width: 1000px;
             line-height: 1.8;
             margin-top: 2rem;
             padding-left: 2rem;
@@ -586,7 +641,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 4rem;
+            margin-top: 2rem;
         }
         
         .image-grid {
@@ -599,6 +654,22 @@
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             background: #f0f0f0;
+        }
+        
+        /* Visual 섹션 이미지 그리드 아이템 - 동일한 크기 */
+        .visual-title-images .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 헤어 쉐이딩 이미지 배경 제거 */
+        .visual-title-images .image-grid-item img[src*="Visual_realistic_hair_shading"] {
+            background: transparent;
+        }
+        
+        .visual-title-images .image-grid-item:has(img[src*="Visual_realistic_hair_shading"]) {
+            background: transparent;
         }
         
         .image-grid-item .skeleton {
@@ -1221,6 +1292,403 @@
             }
         }
         
+        /* 유의사항 섹션 */
+        .notice-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            -webkit-user-drag: none !important;
+            -moz-user-drag: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+        
+        /* 유의사항 내용도 드래그 방지 (문의양식 제외) */
+        .notice-content {
+            -webkit-user-drag: none !important;
+            -moz-user-drag: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+        
+        .notice-content * {
+            -webkit-user-drag: none !important;
+            -moz-user-drag: none !important;
+        }
+        
+        /* 문의양식 내용은 텍스트 선택만 가능, 드래그는 방지 */
+        .inquiry-form-content,
+        .inquiry-form-content * {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            -webkit-user-drag: none !important;
+            -moz-user-drag: none !important;
+        }
+        
+        .notice-toggle {
+            width: auto;
+            min-width: 200px;
+            max-width: 400px;
+            display: inline-flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 0.9rem 1.5rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+        
+        .notice-toggle:hover {
+            background: #f0f2f5;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 4px 8px rgba(0, 107, 230, 0.1);
+        }
+        
+        .notice-toggle:active {
+            transform: scale(0.98);
+        }
+        
+        .notice-toggle.active {
+            background: #f0f2f5;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        
+        .notice-title {
+            font-size: 0.75rem;
+        }
+        
+        .notice-icon {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+            margin-left: 0.5rem;
+        }
+        
+        .notice-toggle.active .notice-icon {
+            transform: rotate(180deg);
+        }
+        
+        .notice-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 0;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .notice-content.expanded {
+            max-height: 4000px;
+            padding: 1.5rem 0 0.5rem 0;
+        }
+        
+        .notice-section-item {
+            margin-bottom: 2rem;
+        }
+        
+        .notice-section-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .notice-subtitle {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.01em;
+        }
+        
+        .notice-subsection {
+            margin-top: 1.2rem;
+            margin-left: 1.2rem;
+            padding-left: 1rem;
+            border-left: 2px solid rgba(0, 107, 230, 0.2);
+        }
+        
+        .notice-subsection-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.6rem;
+            margin-top: 0;
+        }
+        
+        .notice-subsection-note {
+            font-size: 0.8rem;
+            color: #888;
+            font-style: italic;
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+        
+        .notice-subsection-text {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.8;
+            margin: 0.5rem 0;
+        }
+        
+        .notice-subsection ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* 문의 양식 복사 버튼 */
+        .copy-form-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Pretendard', sans-serif;
+        }
+        
+        .copy-form-btn:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 107, 230, 0.3);
+        }
+        
+        .copy-form-btn:active {
+            transform: translateY(0);
+        }
+        
+        .copy-form-btn i {
+            font-size: 0.85rem;
+        }
+        
+        .copy-form-btn.copied {
+            background: #28a745;
+        }
+        
+        .copy-form-btn.copied:hover {
+            background: #218838;
+        }
+        
+        
+        @media (max-width: 768px) {
+            .copy-form-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* 이용순서 프로세스 스타일 */
+        .process-steps {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+            padding: 1rem 0;
+        }
+        
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 80px;
+            flex: 0 0 auto;
+        }
+        
+        .process-step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 107, 230, 0.2);
+            flex-shrink: 0;
+        }
+        
+        .process-step-text {
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 500;
+            text-align: center;
+            line-height: 1.4;
+            min-height: 2.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .process-arrow {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            margin-top: 20px;
+            flex-shrink: 0;
+            padding: 0 0.5rem;
+            font-weight: 600;
+        }
+        
+        .process-arrow i {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .process-steps {
+                gap: 0.3rem;
+                justify-content: space-between;
+            }
+            
+            .process-step {
+                min-width: 50px;
+                flex: 1 1 auto;
+            }
+            
+            .process-step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .process-step-text {
+                font-size: 0.75rem;
+                min-height: 2.5em;
+            }
+            
+            .process-arrow {
+                font-size: 0.9rem;
+                padding: 0 0.2rem;
+                margin-top: 17.5px;
+                opacity: 0.7;
+            }
+        }
+        
+        .notice-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .notice-content li {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.8;
+            padding: 0.5rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+            font-weight: 400;
+        }
+        
+        .notice-content li strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        
+        .notice-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .notice-section {
+                padding: 1.5rem 1.25rem;
+            }
+            
+            .notice-toggle {
+                width: 100%;
+                max-width: 100%;
+                font-size: 0.7rem;
+                padding: 0.85rem 1rem;
+                border-radius: 12px;
+            }
+            
+            .notice-toggle:active {
+                transform: scale(0.97);
+            }
+            
+            .notice-content {
+                max-width: 100%;
+            }
+            
+            .notice-content.expanded {
+                max-height: 5000px;
+                padding: 1rem 0 0.5rem 0;
+            }
+            
+            .notice-section-item {
+                margin-bottom: 1.5rem;
+            }
+            
+            .notice-subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .notice-content li {
+                font-size: 0.8rem;
+                line-height: 1.7;
+                padding: 0.4rem 0;
+                padding-left: 1.2rem;
+            }
+            
+            .notice-content li::before {
+                left: 0.2rem;
+            }
+            
+            .notice-subsection {
+                margin-left: 0.8rem;
+                padding-left: 0.8rem;
+            }
+            
+            .notice-subsection-title {
+                font-size: 0.82rem;
+            }
+            
+            .notice-subsection-note {
+                font-size: 0.75rem;
+            }
+            
+            .notice-subsection-text {
+                font-size: 0.8rem;
+            }
+        }
+        
         footer {
             padding: 4rem 2rem;
             border-top: 1px solid rgba(0,0,0,0.1);
@@ -1367,6 +1835,11 @@
             
             .section-number {
                 display: none;
+            }
+            
+            /* Visual 섹션 이미지 그리드 모바일 최적화 */
+            .visual-title-images {
+                grid-template-columns: 1fr !important;
             }
             
             .section-title {
@@ -1599,7 +2072,7 @@
     <div class="ambient-glow"></div>
     
     <nav>
-        <div class="logo">[Cha_E1]</div>
+        <div class="logo">[Cha_E]</div>
     </nav>
     
     <section class="hero">
@@ -1615,78 +2088,22 @@
         </div>
     </section>
     
-    <section id="visual">
-        <div class="section-header fade-in">
-            <span class="section-number">01</span>
-            <h2 class="section-title">Visual </h2>
-            <h3 class="section-subtitle">버츄얼</h3>
-            <p class="section-description">
-              Blender를 통해 직접 작업합니다.<br> 자동 페이셜 프로그램을 사용하지 않으며 모든 쉐이프키를 제로부터 만들어냅니다. 
-            </p>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <h3>Facial</h3>
-                <p>개성있는, 역동적이지만 기괴하지 않은 범위의 페이셜을 추구합니다.
-                  표준 52개 페이셜(ARKit) 이외에도 수십 개의 커스텀 키를 추가로 설계하여 보정합니다.</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <h3>Flawless Topology</h3>
-                <p>조명에 의한 불쾌한 그림자나 왜곡을 원천적으로 차단한 깨끗한 쉐이딩을 제공합니다.</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <h3>Precise Calibration</h3>
-                <p>스프링본</p>
-            </div>
-        </div>
-        
-        <div class="image-grid">
-            <div class="image-grid-item">
-                <img src="images/Visual_springbone_rotation.webp" alt="스프링본 회전" loading="lazy" decoding="async">
-                <div class="image-grid-title">스프링본 회전</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_springbone_skirt_collision.webp" alt="스프링본 치마 손 부딪힘" loading="lazy" decoding="async">
-                <div class="image-grid-title">스프링본 치마 손 부딪힘</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_springbone_hair_movement.webp" alt="스프링본 머리카락 움직임" loading="lazy" decoding="async">
-                <div class="image-grid-title">스프링본 머리카락 움직임</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_magicacloth_rotation.webp" alt="마지카클로즈 회전" loading="lazy" decoding="async">
-                <div class="image-grid-title">마지카클로즈 회전</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_magicacloth_rotation_2.webp" alt="마지카클로즈 회전 2" loading="lazy" decoding="async">
-                <div class="image-grid-title">마지카클로즈 회전 2</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_magicacloth_skirt_collision.webp" alt="마지카클로즈 치마 손 부딪힘" loading="lazy" decoding="async">
-                <div class="image-grid-title">마지카클로즈 치마 손 부딪힘</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_magicacloth_skirt_movement.webp" alt="마지카클로즈 치마 움직임" loading="lazy" decoding="async">
-                <div class="image-grid-title">마지카클로즈 치마 움직임</div>
-            </div>
-            <div class="image-grid-item">
-                <img src="images/Visual_magicacloth_rotation_2_springbone_skirt_movement.webp" alt="마지카클로즈 회전 2 스프링본 치마 움직임" loading="lazy" decoding="async">
-                <div class="image-grid-title">마지카클로즈 회전 2 스프링본 치마 움직임</div>
-            </div>
-        </div>
-    </section>
-    
     <section id="expression">
         <div class="section-header fade-in">
-            <span class="section-number">02</span>
-            <h2 class="section-title">Facial</h2>
+            <span class="section-number">01</span>
+            <h2 class="section-title"> Facial</h2>
             <h3 class="section-subtitle">페이셜</h3>
             <p class="section-description">
-                캐릭터의 표정은 단순한 움직임이 아닌, 성격(Personality)의 연장입니다.
+              Blender를 통해 직접 작업합니다. 자동 페이셜 프로그램을 사용하지 않으며 모든 쉐이프키를 제로부터
+              만들어냅니다.<br> 
+              개성있는, 역동적이지만 기괴하지 않은 범위의 페이셜을 추구합니다.
+              표준 52개 페이셜(ARKit) 이외에도 수십 개의 커스텀 키를 추가로 설계하여 보정합니다.
             </p>
+   
+            
+            <div style="margin-top: 3rem; text-align: center; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+              <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/SOqXjo14CC8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
             <div class="image-grid" style="margin-top: 3rem;">
                 <div class="image-grid-item">
                     <img src="images/Facial_soft_eyes_example.webp" alt="말랑눈 예시" loading="lazy" decoding="async">
@@ -1698,28 +2115,114 @@
                 </div>
             </div>
         </div>
+
+    </section>
+    
+
+  
+    
+
+
+    
+
+
+    <section id="visual">
+        <div class="section-header fade-in">
+            <span class="section-number">02</span>
+            <h2 class="section-title">Visual </h2>
+            <h3 class="section-subtitle">버츄얼</h3>
+            <p class="section-description">
+              직접 커스텀한 빌트인 쉐이더를 통해 일반 와루도에서도 닐로툰과 유사한 질감을 낼 수 있습니다.<br>
+              URP 쉐이더 컨버팅 런칭은 2026년 1분기 예정입니다.<br>
+              블렌더를 통한 헤어 합성, 텍스쳐 리페인팅 등을 통해 오직 한분만을 위한 유일한 아바타를 작업합니다.
+            </p>
+            <div class="visual-title-images" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <div class="image-grid-item">
+                    <img src="images/Visual_realtone_chaitone_comparison_realtone2.png" alt="릴툰 차이툰 비교 릴툰 before" style="width: 100%; height: auto;" loading="lazy" decoding="async">
+                    <div class="image-grid-title">릴툰</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_realtone_chaitone_comparison_chaitone1.png" alt="릴툰 차이툰 비교 릴툰 after" style="width: 100%; height: auto;" loading="lazy" decoding="async">
+                    <div class="image-grid-title">닐로툰풍 커스텀 쉐이더</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_realtone_chaitone_comparison_realtone1.png" alt="릴툰 차이툰 비교 차이툰 before" style="width: 100%; height: auto;" loading="lazy" decoding="async">
+                    <div class="image-grid-title">릴툰</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_realtone_chaitone_comparison_chaitone2.png" alt="릴툰 차이툰 비교 차이툰 after" style="width: 100%; height: auto;" loading="lazy" decoding="async">
+                    <div class="image-grid-title">닐로툰풍 커스텀 쉐이더</div>
+                </div>
+                <div class="image-grid-item" style="grid-column: 1 / -1; background: transparent; box-shadow: none;">
+                    <img src="images/Visual_realistic_hair_shading.png" alt="리얼한 헤어 쉐이딩" style="width: 100%; height: auto; background: transparent; box-shadow: none;" loading="lazy" decoding="async">
+                    <div class="image-grid-title" style="display: flex; justify-content: space-between; max-width: 100%; margin: 0 auto;">
+                        <div style="width: 630px; text-align: center;">릴툰</div>
+                        <div style="width: 630px; text-align: center;">실사풍 헤어 커스텀 쉐이더</div>
+                    </div></div>
+                </div>
+            </div>
+   
+        </div>
+    </section>
+    
+    <section id="physics">
+        <div class="section-header fade-in">
+            <span class="section-number">03</span>
+            <h2 class="section-title">Physics</h2>
+            <h3 class="section-subtitle">피직스</h3>
+            <p class="section-description">
+              Physics Bone, Spring Bone, Magic Cloth 모두 작업 가능합니다.
+            </p>
+        </div>
         
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <h3>Personality Facial</h3>
-                <p>의뢰인의 고유한 성향을 분석하여 미소의 깊이, 시선의 처리까지 세밀하게 커스터마이징합니다.</p>
+        <div style="margin-top: 3rem; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 2rem;">
+            <h4 style="font-family: 'BookkMyungjo', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-main);">Spring Bone</h4>
+            <div class="image-grid">
+                <div class="image-grid-item">
+                    <img src="images/Visual_springbone_rotation.webp" alt="스프링본 회전" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Spring Bone] 회전</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_magicacloth_rotation_2_springbone_skirt_movement.webp" alt="마지카클로즈 회전 2 스프링본 치마 움직임" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Spring Bone] 치마 움직임</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_springbone_skirt_collision.webp" alt="스프링본 치마 손 부딪힘" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Spring Bone] 치마 손 부딪힘</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_springbone_hair_movement.webp" alt="스프링본 머리카락 움직임" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Spring Bone] 머리카락 움직임</div>
+                </div>
             </div>
-            
-            <div class="feature-card fade-in">
-                <h3>Dynamic Articulation</h3>
-                <p>시원한 개구율과 고가동역 구강 구조를 구현하여 전달력과 생동감을 극대화합니다.</p>
-            </div>
-            
-            <div class="feature-card fade-in">
-                <h3>Extreme Stability</h3>
-                <p>과격한 감정 표현에도 그래픽이 붕괴되지 않는 견고한 리깅(Rigging) 구조를 제공합니다.</p>
+        </div>
+        
+        <div style="margin-top: 4rem;">
+            <h4 style="font-family: 'BookkMyungjo', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: var(--text-main);">Magic Cloth</h4>
+            <div class="image-grid">
+                <div class="image-grid-item">
+                    <img src="images/Visual_magicacloth_rotation.webp" alt="마지카클로즈 회전" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Magic Cloth] 회전</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_magicacloth_rotation_2.webp" alt="마지카클로즈 회전 2" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Magic Cloth] 회전 2</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_magicacloth_skirt_collision.webp" alt="마지카클로즈 치마 손 부딪힘" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Magic Cloth] 치마 손 부딪힘</div>
+                </div>
+                <div class="image-grid-item">
+                    <img src="images/Visual_magicacloth_skirt_movement.webp" alt="마지카클로즈 치마 움직임" loading="lazy" decoding="async">
+                    <div class="image-grid-title">[Magic Cloth] 치마 움직임</div>
+                </div>
             </div>
         </div>
     </section>
     
     <section id="technical">
         <div class="section-header fade-in">
-            <span class="section-number">03</span>
+            <span class="section-number">04</span>
             <h2 class="section-title">API</h2>
             <h3 class="section-subtitle">블루프린트</h3>
         </div>
@@ -1728,9 +2231,9 @@
             <div class="feature-card fade-in">
                 <h3>Warudo BluePrint</h3>
                 <ul class="feature-list">
-                    <li>최신 API 및 신기능 즉각 대응</li>
                     <li>Node/Blueprint 기반 인터랙션 설계</li>
-                    <li>시네마틱 연출을 위한 소품(Props) 제어</li>
+                    <li>다채롭고 자연스러운 애니메이션</li>
+                    <li>오리지널 Prop, particle 제작</li>
                 </ul>
             </div>
             
@@ -1767,7 +2270,7 @@
     
     <section id="platform">
         <div class="section-header fade-in">
-            <span class="section-number">04</span>
+            <span class="section-number">05</span>
             <h2 class="section-title">3D VTubing software & Program</h2>
             <h3 class="section-subtitle">3D 소프트웨어 & 프로그램</h3>
         </div>
@@ -1794,7 +2297,7 @@
     <!-- NEW PORTFOLIO SECTION -->
     <section id="portfolio">
         <div class="section-header fade-in">
-            <span class="section-number">05</span>
+            <span class="section-number">06</span>
             <h2 class="section-title">Portfolio</h2>
             <h3 class="section-subtitle">포트폴리오</h3>
             <p class="section-description">
@@ -1861,8 +2364,151 @@
         </div>
     </section>
     
+    <!-- 유의사항 섹션 -->
+    <div class="notice-section">
+        <button class="notice-toggle" id="noticeToggle" aria-label="유의사항 펼치기/접기">
+            <span class="notice-title">유의사항</span>
+            <i class="fas fa-chevron-down notice-icon"></i>
+        </button>
+        <div class="notice-content" id="noticeContent">
+            <div class="notice-section-item">
+                <h4 class="notice-subtitle">1. 저작권 및 사용 규정</h4>
+                <ul>
+                    <li><strong>권리 귀속:</strong> 오리지널 텍스쳐, 모델링, 일러스트 등의 작업물의 저작권은 제작자(CHA_E)에게 있으며, 의뢰인은 '방송 및 상업적 사용권'을 취득합니다. (저작권 구입은 별도 논의 필요) 디자인을 카피하거나 AI에게 학습시키지 마십시오.</li>
+                    <li><strong>유니티 패키지 제공 관련:</strong> 기본 구성(헤드, 바디) 전달/ 커스텀 쉐이더 머테리얼, 오리지널 텍스쳐 제외, 작업 완료 후 유니티 패키지 기준 최대 2개월 보관 후 삭제합니다.</li>
+                    <li><strong>포트폴리오 활용:</strong> 모든 작업물은 첫 공개 이후 또는 제작 완료 3개월 뒤부터 제작자의 포트폴리오 & 홍보 등에 사용될 수 있습니다.</li>
+                </ul>
+            </div>
+            
+            <div class="notice-section-item">
+                <h4 class="notice-subtitle">2. 에셋 및 라이선스 관련 (Booth 등)</h4>
+                <ul>
+                    <li><strong>사전 확인 필수:</strong> 사용되는 외부 에셋(Booth 등)은 반드시 "상업 이용" 및 "방송 가능" 범위여야 합니다. 의뢰 전 판매자에게 작업 허가를 직접 받고 오셔야 하며, 이를 확인하지 않아 발생하는 저작권 문제는 책임지지 않습니다.</li>
+                    <li><strong>에셋 양측 구매 원칙:</strong> 저작권 보호를 위해 파일 공유가 발생하는 모든 당사자는 해당 에셋을 보유해야 합니다. 미보유 파츠의 구매 비용을 추가로 지불하거나 작업자에게 선물해주셔야 합니다.</li>
+                </ul>
+            </div>
+            
+            <div class="notice-section-item">
+                <h4 class="notice-subtitle">3. 작업 범위 및 기술 사양</h4>
+                <ul>
+                    <li><strong>플랫폼:</strong> <strong>Warudo(커스텀 쉐이더 사용)를 선호하나</strong> VRM(Mtoon), VSF(릴툰), VRC(릴툰) 등 모두 작업 가능</li>
+                    <li><strong>포함 사항:</strong> 기본적으로 52개의 ARKit(페이셜) 및 MMD 표정이 포함되며 보정을 위한 추가 쉐이프키(캐릭터의 얼굴이나 표정에 따라 갯수 다름, 와루도 전용)를 원할 시, 추가금이 견적에 포함됩니다.</li>
+                    <li><strong>미포함 사항:</strong> VRChat용 전용 표정 및 VRM 변환 작업은 기본 범위에서 제외됩니다. 필요 시 별도의 옵션을 추가하거나, 전달된 유니티 파일을 통해 타 작업자에게 의뢰하셔야 합니다.</li>
+                    <li><strong>수정 정책:</strong> 오류 수정을 제외한 수정 횟수 제한은 3회입니다. 모델의 근간을 바꾸거나 아예 처음부터 작업해야 하는 등 작업 흐름상 곤란하다고 판단되는 요청은 거절될 수 있습니다.</li>
+                </ul>
+            </div>
+            
+            <div class="notice-section-item">
+                <h4 class="notice-subtitle">[유의사항]</h4>
+                <ul>
+                    <li>※ 상호 간의 기본적인 예의를 지켜주시기 바랍니다.</li>
+                    <li>※ 페이셜 작업 시작 후 성형 수정 불가</li>
+                    <li>※ 기본 수정 횟수 초과 시 1회당 추가 비용 발생</li>
+                    <li>※ 수정 요청은 최대한 한 번에 전달 바랍니다.</li>
+                    <li>※ 부스 의상 자체의 결함 또는 프로그램의 한계로 특정 자세에서 뚫림 등의 오류 발생할 수 있음.</li>
+                </ul>
+            </div>
+            
+            <div class="notice-section-item">
+                <h4 class="notice-subtitle">4. 예약 및 환불 규정</h4>
+                <ul>
+                    <li><strong>신청 절차:</strong> 주문 완료가 예약 확정을 의미하지 않습니다. 상단바의 커미션 활성화 여부를 확인해 주시기 바라며, 디스코드를 통한 상담 후 제작 가능 여부에 따라 최종 확정됩니다.</li>
+                </ul>
+                
+                <div class="notice-subsection">
+                    <h5 class="notice-subsection-title">[파일 형식]</h5>
+                    <p class="notice-subsection-note">※ Unity Package + FBX 포함 파일 수령을 권장합니다.</p>
+                    <ul>
+                        <li><strong>Unity Package:</strong> 기존 헤어·의상 세팅 사용 및 뚜따 가능</li>
+                        <li><strong>FBX(or blender):</strong> 성형·페이셜 수정 가능 / 뚜따 가능</li>
+                        <li><strong>VRM 파일:</strong> 성형·페이셜 수정 불가 / 뚜따 가능</li>
+                        <li><strong>VSF / Warudo 파일:</strong> 수정 불가</li>
+                    </ul>
+                </div>
+                
+                <div class="notice-subsection">
+                    <h5 class="notice-subsection-title">이용순서</h5>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="process-step-number">1</div>
+                            <div class="process-step-text">문의</div>
+                        </div>
+                        <div class="process-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-step-number">2</div>
+                            <div class="process-step-text">견적, 일정안내<br>및 결제</div>
+                        </div>
+                        <div class="process-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-step-number">3</div>
+                            <div class="process-step-text">주문</div>
+                        </div>
+                        <div class="process-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-step-number">4</div>
+                            <div class="process-step-text">입금</div>
+                        </div>
+                        <div class="process-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-step-number">5</div>
+                            <div class="process-step-text">작업</div>
+                        </div>
+                        <div class="process-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-step-number">6</div>
+                            <div class="process-step-text">완료</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notice-subsection">
+                    <h5 class="notice-subsection-title">환불 기준:</h5>
+                    <ul>
+                        <li><strong>상담 진행 전:</strong> 예약금 100% 환불 가능</li>
+                        <li><strong>상담 진행 후:</strong> 예약금 환불 불가</li>
+                        <li><strong>작업 착수 후:</strong> 작업 진행률에 따라 차등 환불되거나 환불이 불가할 수 있습니다.</li>
+                        <li>에셋 구매시 지불하신 금액은 환불되지 않습니다.</li>
+                    </ul>
+                </div>
+                
+                <div class="notice-subsection">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
+                        <h5 class="notice-subsection-title" style="margin-bottom: 0;">[문의 양식 <span style="color: #e74c3c; font-weight: 700;">(필수)</span>]</h5>
+                        <button class="copy-form-btn" id="copyFormBtn" aria-label="문의 양식 복사">
+                            <i class="fas fa-copy"></i>
+                            <span>문의 양식 복사하기</span>
+                        </button>
+                    </div>
+                    <div class="inquiry-form-content" id="inquiryFormContent">
+                        <ul>
+                            <li>스트리머 활동명 / 플랫폼 방송국 링크 :</li>
+                            <li>의뢰 내용 :</li>
+                            <li>빠른 마감 신청 여부 :</li>
+                            <li>사용 예정 Booth 에셋 링크 (아바타·헤어·의상 등) :</li>
+                        </ul>
+                    </div>
+                    <p class="notice-subsection-note">※ 문의 양식 미준수 시 원활한 답변이 어려울 수 있습니다.</p>
+                    <p class="notice-subsection-text">평균 작업 기간: 2주(의뢰에 따라 상이함)</p>
+                    <p class="notice-subsection-text">빠른 마감 신청 전 문의 필요</p>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+    
     <footer>
-        <p>&copy; 2024 [Cha_E] 3D VIRTUAL SOLUTION.</p>
+        <p>&copy; 2026 [Cha_E] 3D VIRTUAL SOLUTION.</p>
     </footer>
     
     <!-- Scroll to Top Button -->
@@ -1877,6 +2523,165 @@
             
             // 모바일에서는 즉시 실행, 데스크톱에서는 DOMContentLoaded 대기
             const initFunction = () => {
+            // 우클릭 방지
+            document.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 개발자 도구 단축키 방지 (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U 등)
+            document.addEventListener('keydown', (e) => {
+                // F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+I
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+J
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+U (소스 보기)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+S (저장)
+                if (e.ctrlKey && e.keyCode === 83) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // 텍스트 선택 방지 (일부 요소 제외)
+            document.addEventListener('selectstart', (e) => {
+                const target = e.target;
+                const allowedSelectors = ['.notice-content', '.section-description', '.hero-desc', '.feature-card p', '.message-section p', '.inquiry-form-content'];
+                const isAllowed = allowedSelectors.some(selector => target.closest(selector));
+                if (!isAllowed) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // 드래그 방지 강화 - 모든 드래그 이벤트 차단
+            const preventDrag = (e) => {
+                const target = e.target;
+                // 버튼, 링크, 입력 필드만 예외 처리 (문의양식도 드래그 차단)
+                const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
+                const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link', 'copy-form-btn'];
+                
+                // 복사 버튼만 예외 처리
+                if (target.classList.contains('copy-form-btn') || target.closest('.copy-form-btn')) {
+                    return;
+                }
+                
+                if (!allowedTags.includes(target.tagName) && 
+                    !allowedClasses.some(cls => target.classList.contains(cls)) &&
+                    !target.closest('button, a, input, textarea, select')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            };
+            
+            // 모든 드래그 관련 이벤트 차단
+            document.addEventListener('dragstart', preventDrag, true);
+            document.addEventListener('drag', preventDrag, true);
+            document.addEventListener('dragend', preventDrag, true);
+            document.addEventListener('dragover', preventDrag, true);
+            document.addEventListener('dragenter', preventDrag, true);
+            document.addEventListener('dragleave', preventDrag, true);
+            document.addEventListener('drop', preventDrag, true);
+            
+            // 이미지에 직접 ondragstart 속성 추가
+            const addDragPreventionToImages = () => {
+                const images = document.querySelectorAll('img');
+                images.forEach(img => {
+                    img.setAttribute('draggable', 'false');
+                    img.ondragstart = () => false;
+                    img.onmousedown = (e) => {
+                        if (e.button === 0) { // 왼쪽 마우스 버튼만
+                            e.preventDefault();
+                            return false;
+                        }
+                    };
+                });
+            };
+            
+            // DOM 로드 후 이미지에 드래그 방지 적용
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', addDragPreventionToImages);
+            } else {
+                addDragPreventionToImages();
+            }
+            
+            // 동적으로 추가되는 이미지에도 적용
+            const imageObserver = new MutationObserver(() => {
+                addDragPreventionToImages();
+            });
+            
+            imageObserver.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+            
+            // 마우스 다운 시 드래그 방지 (문의양식 포함)
+            document.addEventListener('mousedown', (e) => {
+                const target = e.target;
+                const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
+                const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link', 'copy-form-btn'];
+                
+                // 복사 버튼만 예외 처리
+                if (target.classList.contains('copy-form-btn') || target.closest('.copy-form-btn')) {
+                    return;
+                }
+                
+                // 이미지나 텍스트를 드래그하려는 경우 방지 (문의양식 포함)
+                if ((target.tagName === 'IMG' || target.tagName === 'P' || target.tagName === 'SPAN' || target.tagName === 'DIV' || target.tagName === 'LI') &&
+                    !allowedTags.includes(target.tagName) && 
+                    !allowedClasses.some(cls => target.classList.contains(cls)) &&
+                    !target.closest('button, a, input, textarea, select')) {
+                    e.preventDefault();
+                    return false;
+                }
+            }, true);
+            
+            // 터치 이벤트로 드래그 방지 (모바일)
+            document.addEventListener('touchstart', (e) => {
+                const target = e.target;
+                const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
+                const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link'];
+                
+                if (target.tagName === 'IMG' && 
+                    !allowedTags.includes(target.tagName) && 
+                    !allowedClasses.some(cls => target.classList.contains(cls)) &&
+                    !target.closest('button, a, input, textarea, select')) {
+                    e.preventDefault();
+                    return false;
+                }
+            }, { passive: false });
+            
+            document.addEventListener('touchmove', (e) => {
+                const target = e.target;
+                if (target.tagName === 'IMG') {
+                    const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
+                    const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link'];
+                    
+                    if (!allowedTags.includes(target.tagName) && 
+                        !allowedClasses.some(cls => target.classList.contains(cls)) &&
+                        !target.closest('button, a, input, textarea, select')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            }, { passive: false });
+            
             // Mobile Menu Toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const mobileNav = document.querySelector('.mobile-nav');
@@ -2431,6 +3236,208 @@
                     behavior: 'smooth'
                 });
             });
+            
+            // 유의사항 섹션 우클릭/드래그 방지 강화 (문의양식 제외)
+            const noticeSection = document.querySelector('.notice-section');
+            if (noticeSection) {
+                let isDraggingInNotice = false;
+                let dragStartPos = { x: 0, y: 0 };
+                
+                const isAllowedElement = (target, eventType) => {
+                    const copyFormBtn = document.getElementById('copyFormBtn');
+                    
+                    // 복사 버튼은 항상 예외 처리
+                    if (copyFormBtn && (copyFormBtn.contains(target) || target === copyFormBtn)) {
+                        return true;
+                    }
+                    
+                    // 드래그 이벤트의 경우 문의양식도 차단
+                    const inquiryFormContent = document.getElementById('inquiryFormContent');
+                    const isDragEvent = ['dragstart', 'drag', 'dragover', 'dragenter', 'dragleave', 'drop'].includes(eventType);
+                    
+                    if (isDragEvent && inquiryFormContent && inquiryFormContent.contains(target)) {
+                        return false; // 드래그는 차단
+                    }
+                    
+                    // selectstart는 문의양식에서 허용
+                    if (eventType === 'selectstart' && inquiryFormContent && inquiryFormContent.contains(target)) {
+                        return true; // 텍스트 선택은 허용
+                    }
+                    
+                    return false;
+                };
+                
+                const preventNoticeActions = (e) => {
+                    const target = e.target;
+                    
+                    // 허용된 요소는 통과
+                    if (isAllowedElement(target, e.type)) {
+                        return;
+                    }
+                    
+                    // 우클릭 방지
+                    if (e.type === 'contextmenu') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                    
+                    // 드래그 방지 (문의양식 포함)
+                    if (e.type === 'dragstart' || e.type === 'drag' || e.type === 'dragover' || e.type === 'dragenter' || e.type === 'dragleave' || e.type === 'drop') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                    
+                    // 텍스트 선택 방지 (문의양식 제외)
+                    if (e.type === 'selectstart') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                };
+                
+                // 마우스 다운 시 드래그 시작 감지
+                noticeSection.addEventListener('mousedown', (e) => {
+                    const copyFormBtn = document.getElementById('copyFormBtn');
+                    // 복사 버튼만 예외 처리, 문의양식 내용도 드래그 방지
+                    if (!copyFormBtn || (!copyFormBtn.contains(e.target) && e.target !== copyFormBtn)) {
+                        dragStartPos.x = e.clientX;
+                        dragStartPos.y = e.clientY;
+                        isDraggingInNotice = false;
+                    }
+                }, true);
+                
+                // 마우스 이동 시 드래그 감지 및 방지
+                noticeSection.addEventListener('mousemove', (e) => {
+                    if (dragStartPos.x !== 0 || dragStartPos.y !== 0) {
+                        const copyFormBtn = document.getElementById('copyFormBtn');
+                        // 복사 버튼만 예외 처리, 문의양식 내용도 드래그 방지
+                        if (!copyFormBtn || (!copyFormBtn.contains(e.target) && e.target !== copyFormBtn)) {
+                            const deltaX = Math.abs(e.clientX - dragStartPos.x);
+                            const deltaY = Math.abs(e.clientY - dragStartPos.y);
+                            
+                            if (deltaX > 3 || deltaY > 3) {
+                                isDraggingInNotice = true;
+                                e.preventDefault();
+                                e.stopPropagation();
+                                return false;
+                            }
+                        }
+                    }
+                }, true);
+                
+                // 마우스 업 시 드래그 방지
+                noticeSection.addEventListener('mouseup', (e) => {
+                    const copyFormBtn = document.getElementById('copyFormBtn');
+                    if (isDraggingInNotice && (!copyFormBtn || (!copyFormBtn.contains(e.target) && e.target !== copyFormBtn))) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    dragStartPos.x = 0;
+                    dragStartPos.y = 0;
+                    isDraggingInNotice = false;
+                }, true);
+                
+                // 모든 드래그 관련 이벤트 차단
+                noticeSection.addEventListener('contextmenu', preventNoticeActions, true);
+                noticeSection.addEventListener('dragstart', preventNoticeActions, true);
+                noticeSection.addEventListener('drag', preventNoticeActions, true);
+                noticeSection.addEventListener('dragover', preventNoticeActions, true);
+                noticeSection.addEventListener('dragenter', preventNoticeActions, true);
+                noticeSection.addEventListener('dragleave', preventNoticeActions, true);
+                noticeSection.addEventListener('drop', preventNoticeActions, true);
+                noticeSection.addEventListener('selectstart', preventNoticeActions, true);
+                
+                // 문의양식 내용에 직접 드래그 방지 적용
+                const inquiryFormContent = document.getElementById('inquiryFormContent');
+                if (inquiryFormContent) {
+                    const preventInquiryDrag = (e) => {
+                        // 드래그 이벤트만 차단, 텍스트 선택은 허용
+                        if (e.type === 'dragstart' || e.type === 'drag' || e.type === 'dragover' || e.type === 'dragenter' || e.type === 'dragleave' || e.type === 'drop') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            return false;
+                        }
+                    };
+                    
+                    inquiryFormContent.addEventListener('dragstart', preventInquiryDrag, true);
+                    inquiryFormContent.addEventListener('drag', preventInquiryDrag, true);
+                    inquiryFormContent.addEventListener('dragover', preventInquiryDrag, true);
+                    inquiryFormContent.addEventListener('dragenter', preventInquiryDrag, true);
+                    inquiryFormContent.addEventListener('dragleave', preventInquiryDrag, true);
+                    inquiryFormContent.addEventListener('drop', preventInquiryDrag, true);
+                    
+                    // 문의양식 내용의 모든 이미지에 드래그 방지
+                    const inquiryImages = inquiryFormContent.querySelectorAll('img');
+                    inquiryImages.forEach(img => {
+                        img.setAttribute('draggable', 'false');
+                        img.ondragstart = () => false;
+                    });
+                }
+            }
+            
+            // 문의 양식 복사 기능
+            const copyFormBtn = document.getElementById('copyFormBtn');
+            const inquiryFormContent = document.getElementById('inquiryFormContent');
+            
+            if (copyFormBtn && inquiryFormContent) {
+                copyFormBtn.addEventListener('click', async () => {
+                    const formText = `스트리머 활동명 / 플랫폼 방송국 링크 :
+의뢰 내용 :
+빠른 마감 신청 여부 :
+사용 예정 Booth 에셋 링크 (아바타·헤어·의상 등) :`;
+                    
+                    try {
+                        await navigator.clipboard.writeText(formText);
+                        
+                        // 복사 성공 피드백
+                        const originalText = copyFormBtn.innerHTML;
+                        copyFormBtn.innerHTML = '<i class="fas fa-check"></i><span>복사됨</span>';
+                        copyFormBtn.classList.add('copied');
+                        
+                        setTimeout(() => {
+                            copyFormBtn.innerHTML = originalText;
+                            copyFormBtn.classList.remove('copied');
+                        }, 2000);
+                    } catch (err) {
+                        // 클립보드 API 실패 시 fallback 방법 사용
+                        const textArea = document.createElement('textarea');
+                        textArea.value = formText;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        
+                        try {
+                            document.execCommand('copy');
+                            const originalText = copyFormBtn.innerHTML;
+                            copyFormBtn.innerHTML = '<i class="fas fa-check"></i><span>복사됨</span>';
+                            copyFormBtn.classList.add('copied');
+                            
+                            setTimeout(() => {
+                                copyFormBtn.innerHTML = originalText;
+                                copyFormBtn.classList.remove('copied');
+                            }, 2000);
+                        } catch (err) {
+                            alert('복사에 실패했습니다. 수동으로 복사해주세요.');
+                        }
+                        
+                        document.body.removeChild(textArea);
+                    }
+                });
+            }
+            
+            // 유의사항 토글 기능
+            const noticeToggle = document.getElementById('noticeToggle');
+            const noticeContent = document.getElementById('noticeContent');
+            
+            if (noticeToggle && noticeContent) {
+                noticeToggle.addEventListener('click', () => {
+                    noticeToggle.classList.toggle('active');
+                    noticeContent.classList.toggle('expanded');
+                });
+            }
             };
             
             if (isMobile) {
