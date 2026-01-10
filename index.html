@@ -2629,23 +2629,13 @@
                 }
             }, true);
             
-            // 터치 이벤트로 드래그 방지 (모바일)
+            // 터치 이벤트로 드래그 방지 (모바일) - 스크롤은 허용
+            let touchStartPos = { x: 0, y: 0 };
+            let touchStartTime = 0;
+            
             document.addEventListener('touchstart', (e) => {
                 const target = e.target;
-                const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
-                const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link'];
-                
-                if (target.tagName === 'IMG' && 
-                    !allowedTags.includes(target.tagName) && 
-                    !allowedClasses.some(cls => target.classList.contains(cls)) &&
-                    !target.closest('button, a, input, textarea, select')) {
-                    e.preventDefault();
-                    return false;
-                }
-            }, { passive: false });
-            
-            document.addEventListener('touchmove', (e) => {
-                const target = e.target;
+                // 이미지에 터치한 경우 위치와 시간 기록 (스크롤 허용을 위해 preventDefault 하지 않음)
                 if (target.tagName === 'IMG') {
                     const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
                     const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link'];
@@ -2653,11 +2643,45 @@
                     if (!allowedTags.includes(target.tagName) && 
                         !allowedClasses.some(cls => target.classList.contains(cls)) &&
                         !target.closest('button, a, input, textarea, select')) {
-                        e.preventDefault();
-                        return false;
+                        touchStartPos.x = e.touches[0].clientX;
+                        touchStartPos.y = e.touches[0].clientY;
+                        touchStartTime = Date.now();
+                    }
+                }
+            }, { passive: true });
+            
+            document.addEventListener('touchmove', (e) => {
+                const target = e.target;
+                if (target.tagName === 'IMG' && touchStartPos.x !== 0) {
+                    const allowedTags = ['BUTTON', 'A', 'INPUT', 'TEXTAREA', 'SELECT'];
+                    const allowedClasses = ['cta-button', 'modal-btn', 'modal-arrow', 'scroll-to-top', 'notice-toggle', 'social-link'];
+                    
+                    if (!allowedTags.includes(target.tagName) && 
+                        !allowedClasses.some(cls => target.classList.contains(cls)) &&
+                        !target.closest('button, a, input, textarea, select')) {
+                        
+                        const deltaX = Math.abs(e.touches[0].clientX - touchStartPos.x);
+                        const deltaY = Math.abs(e.touches[0].clientY - touchStartPos.y);
+                        const timeDelta = Date.now() - touchStartTime;
+                        
+                        // 수직 스크롤인 경우 허용 (세로 이동이 가로 이동보다 크고, 빠른 움직임)
+                        const isVerticalScroll = deltaY > deltaX && deltaY > 10;
+                        const isQuickScroll = timeDelta < 300 && deltaY > 20;
+                        
+                        // 드래그만 차단 (수평 이동이 크거나, 느린 수직 이동)
+                        if (!isVerticalScroll && !isQuickScroll && (deltaX > 5 || deltaY > 5)) {
+                            e.preventDefault();
+                            return false;
+                        }
                     }
                 }
             }, { passive: false });
+            
+            document.addEventListener('touchend', () => {
+                touchStartPos.x = 0;
+                touchStartPos.y = 0;
+                touchStartTime = 0;
+            }, { passive: true });
             
             // Mobile Menu Toggle
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -3433,7 +3457,7 @@
                 }
             }
         })();
-        console.log("version 0110");
+        console.log("version 0110_2");
     </script>
 </body>
 </html>
