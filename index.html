@@ -2535,35 +2535,6 @@
                 return false;
             });
             
-            // 개발자 도구 단축키 방지 (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U 등)
-            document.addEventListener('keydown', (e) => {
-                // F12
-                if (e.keyCode === 123) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+Shift+I
-                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+Shift+J
-                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+U (소스 보기)
-                if (e.ctrlKey && e.keyCode === 85) {
-                    e.preventDefault();
-                    return false;
-                }
-                // Ctrl+S (저장)
-                if (e.ctrlKey && e.keyCode === 83) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-            
             // 텍스트 선택 방지 (일부 요소 제외)
             document.addEventListener('selectstart', (e) => {
                 const target = e.target;
