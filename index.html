@@ -1342,6 +1342,7 @@
             -ms-user-select: text !important;
             -webkit-user-drag: none !important;
             -moz-user-drag: none !important;
+            text-align: left !important;
         }
         
         .notice-toggle {
@@ -1432,7 +1433,6 @@
             margin-top: 1.2rem;
             margin-left: 1.2rem;
             padding-left: 1rem;
-            border-left: 2px solid rgba(0, 107, 230, 0.2);
         }
         
         .notice-subsection-title {
@@ -1445,18 +1445,20 @@
         }
         
         .notice-subsection-note {
-            font-size: 0.8rem;
+            font-size: 1rem;
             color: #888;
             font-style: italic;
-            margin: 0.5rem 0;
+            margin: 0;
             line-height: 1.6;
+            text-align: left;
         }
         
         .notice-subsection-text {
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: #666;
             line-height: 1.8;
-            margin: 0.5rem 0;
+            margin: 0;
+            text-align: left;
         }
         
         .notice-subsection ul {
@@ -1509,6 +1511,30 @@
             background: #218838;
         }
         
+        /* 토스트 메시지 스타일 */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
         
         @media (max-width: 768px) {
             .copy-form-btn {
@@ -1696,11 +1722,15 @@
             }
             
             .notice-subsection-note {
-                font-size: 0.75rem;
+                font-size: 1rem;
+                text-align: left;
+                margin: 0;
             }
             
             .notice-subsection-text {
-                font-size: 0.8rem;
+                font-size: 1rem;
+                text-align: left;
+                margin: 0;
             }
         }
         
@@ -2268,19 +2298,11 @@
             <span class="section-number">04</span>
             <h2 class="section-title">API</h2>
             <h3 class="section-subtitle">블루프린트</h3>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <h3>Warudo BluePrint</h3>
-                <ul class="feature-list">
-                    <li>Node/Blueprint 기반 인터랙션 설계</li>
-                    <li>다채롭고 자연스러운 애니메이션</li>
-                    <li>오리지널 Prop, particle 제작</li>
-                </ul>
-            </div>
-            
-           
+            <p class="section-description">
+                Node/Blueprint 기반 인터랙션 설계<br>
+                다채롭고 자연스러운 애니메이션<br>
+                오리지널 Prop, particle 제작
+            </p>
         </div>
         
         <div class="image-grid">
@@ -2316,13 +2338,9 @@
             <span class="section-number">05</span>
             <h2 class="section-title">3D VTubing software & Program</h2>
             <h3 class="section-subtitle">3D 소프트웨어 & 프로그램</h3>
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card fade-in">
-                <h3>Universal Ready</h3>
-                <p>Warudo, VSeeFace, Vnyan 등 주요 방송 플랫폼의 최신 환경에서 즉시 사용 가능합니다.</p>
-            </div>
+            <p class="section-description">
+                Warudo, VSeeFace, Vnyan 등 주요 방송 플랫폼의 최신 환경에서 즉시 사용 가능합니다.
+            </p>
         </div>
         
         <div class="tools-section fade-in" style="border:none; padding-top: 2rem;">
@@ -2391,27 +2409,49 @@
             방송에만 집중 할 수 있는 환경을 만들어 드리겠습니다.
         </p>
         <div class="signature">3D Virtual Artist, Cha_E</div>
+        
+        <div class="notice-subsection" style="margin-top: 3rem;">
+            <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
+                <h5 class="notice-subsection-title" style="margin-bottom: 0;">[문의 양식 <span style="color: #e74c3c; font-weight: 700;">(필수)</span>]</h5>
+                <button class="copy-form-btn" id="copyFormBtn" aria-label="문의 양식 복사">
+                    <i class="fas fa-copy"></i>
+                    <span>문의 양식 복사하기</span>
+                </button>
+            </div>
+            <div class="inquiry-form-content" id="inquiryFormContent">
+                <ul>
+                    <li>스트리머 활동명 / 플랫폼 방송국 링크 :</li>
+                    <li>의뢰 내용 :</li>
+                    <li>빠른 마감 신청 여부 :</li>
+                    <li>사용 예정 Booth 에셋 링크 (아바타·헤어·의상 등) :</li>
+                </ul>
+            </div>
+            <p class="notice-subsection-note">※ 문의 양식 미준수 시 원활한 답변이 어려울 수 있습니다.</p>
+            <p class="notice-subsection-text">평균 작업 기간: 2주(의뢰에 따라 상이함)</p>
+            <p class="notice-subsection-text">빠른 마감 신청 전 문의 필요</p>
+        </div>
+        
         <!--TODO 소셜미디어 주석 풀기 -->
-        <!-- <div class="social-links">
+        <div class="social-links">
             <a href="#" class="social-link" aria-label="Discord">
                 <div class="social-link-icon">
                     <i class="fab fa-discord"></i>
                 </div>
                 <span class="social-link-name">Discord</span>
             </a>
-            <a href="#" class="social-link" aria-label="Twitter">
+            <a href="https://x.com/chae_cuz" class="social-link" aria-label="Twitter" target="_blank" rel="noopener noreferrer">
                 <div class="social-link-icon">
                     <i class="fab fa-twitter"></i>
                 </div>
                 <span class="social-link-name">Twitter</span>
             </a>
-            <a href="#" class="social-link" aria-label="Booth">
+            <!-- <a href="#" class="social-link" aria-label="Booth">
                 <div class="social-link-icon">
                     <i class="fas fa-store"></i>
                 </div>
                 <span class="social-link-name">Booth</span>
-            </a>
-        </div> -->
+            </a> -->
+        </div>
     </section>
     
     <!-- 유의사항 섹션 -->
@@ -2531,26 +2571,6 @@
                     </ul>
                 </div>
                 
-                <div class="notice-subsection">
-                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; flex-wrap: wrap;">
-                        <h5 class="notice-subsection-title" style="margin-bottom: 0;">[문의 양식 <span style="color: #e74c3c; font-weight: 700;">(필수)</span>]</h5>
-                        <button class="copy-form-btn" id="copyFormBtn" aria-label="문의 양식 복사">
-                            <i class="fas fa-copy"></i>
-                            <span>문의 양식 복사하기</span>
-                        </button>
-                    </div>
-                    <div class="inquiry-form-content" id="inquiryFormContent">
-                        <ul>
-                            <li>스트리머 활동명 / 플랫폼 방송국 링크 :</li>
-                            <li>의뢰 내용 :</li>
-                            <li>빠른 마감 신청 여부 :</li>
-                            <li>사용 예정 Booth 에셋 링크 (아바타·헤어·의상 등) :</li>
-                        </ul>
-                    </div>
-                    <p class="notice-subsection-note">※ 문의 양식 미준수 시 원활한 답변이 어려울 수 있습니다.</p>
-                    <p class="notice-subsection-text">평균 작업 기간: 2주(의뢰에 따라 상이함)</p>
-                    <p class="notice-subsection-text">빠른 마감 신청 전 문의 필요</p>
-                </div>
             </div>
             
 
@@ -3482,6 +3502,67 @@
                     noticeToggle.classList.toggle('active');
                     noticeContent.classList.toggle('expanded');
                 });
+            }
+            
+            // 디스코드 링크 클릭 이벤트
+            const discordLink = document.querySelector('.social-link[aria-label="Discord"]');
+            if (discordLink) {
+                discordLink.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const discordId = 'cha_e_';
+                    
+                    try {
+                        await navigator.clipboard.writeText(discordId);
+                        showToast(`${discordId} 아이디가 복사되었습니다. 친구요청을 보내주세요.`);
+                    } catch (err) {
+                        // 클립보드 API 실패 시 fallback 방법 사용
+                        const textArea = document.createElement('textarea');
+                        textArea.value = discordId;
+                        textArea.style.position = 'fixed';
+                        textArea.style.left = '-999999px';
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        
+                        try {
+                            document.execCommand('copy');
+                            showToast(`${discordId} 아이디가 복사되었습니다. Discord에서 친구요청을 보내주세요.`);
+                        } catch (err) {
+                            alert('복사에 실패했습니다. 수동으로 복사해주세요.');
+                        }
+                        
+                        document.body.removeChild(textArea);
+                    }
+                });
+            }
+            
+            // 토스트 메시지 표시 함수
+            function showToast(message) {
+                // 기존 토스트가 있으면 제거
+                const existingToast = document.querySelector('.toast');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+                
+                // 새 토스트 생성
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.textContent = message;
+                document.body.appendChild(toast);
+                
+                // 애니메이션을 위해 약간의 지연 후 show 클래스 추가
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 10);
+                
+                // 3초 후 제거
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.parentNode.removeChild(toast);
+                        }
+                    }, 300);
+                }, 3000);
             }
             };
             
